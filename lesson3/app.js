@@ -1,27 +1,21 @@
 // 問題３
-const div = document.getElementById("js-parent");
-const ul = document.createElement('ul');
-const listNumber = 2;
-const src = `../img/bookmark.png`;
-let fileNumber = 1;
+const ul = document.getElementById("js-parent");
 
-div.appendChild(ul);
+const listContents = [
+    { href: "../lesson1/index.html", text: "a1", src: "../img/bookmark.png" },
+    { href: "../lesson2/index.html", text: "a2", src: "../img/bookmark.png" }
+];
 
-(function(){
-const fragment = document.createDocumentFragment();
-for (let i = 0; i < listNumber; i++) {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    const img = document.createElement('img');
-    const hrefPath =`../lesson${fileNumber}/`;
-    fragment.appendChild(li);
-    li.appendChild(a);
-    a.setAttribute("href",`${hrefPath}index.html`);
-    a.textContent= `a${fileNumber}`;
-    a.appendChild(img);
-    img.setAttribute("src",`${src}`);
-    fileNumber++;
-    console.log(i);
-}
-div.appendChild(fragment);
-})();
+listContents.forEach((a) => {
+    let li = document.createElement("li");
+    let anchor = document.createElement("a");
+    let image = document.createElement("img");
+    anchor.href = a.href;
+    anchor.textContent = a.text;
+    image.src = a.src;
+
+    ul.appendChild(li);
+    li.appendChild(anchor);
+    anchor.appendChild(image);
+})
+
