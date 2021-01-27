@@ -1,13 +1,10 @@
-// 問題８
+// 問題４
 
 const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
 const listContents = [{ to: "bookmark.html", img: "../img/1.png", alt: "画像1", text: "ブックマーク" }, { to: "message.html", img: "../img/2.png", alt: "画像2", text: "メッセージ" }];
 
 div.appendChild(ul);
-
-
-
 const getArray = new Promise((resolve,reject) => {
     reject(listContents);
     let image = document.createElement("img");
@@ -15,7 +12,6 @@ const getArray = new Promise((resolve,reject) => {
     image.src = "../img/loading-circle.gif";
     div.appendChild(image);
 });
-
 
 getArray.then((value) => {
     setTimeout(() => {
@@ -35,6 +31,6 @@ getArray.then((value) => {
     })
 }, 3000);
 
-}).catch((value)=> {
-   console.log(value);
+}).catch(()=> {
+   console.error("Errorが発生しました");
 });
