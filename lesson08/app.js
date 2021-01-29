@@ -1,4 +1,4 @@
-// 問題４
+// 問題８
 
 const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
@@ -12,6 +12,7 @@ const getArray = new Promise((resolve,reject) => {
     image.src = "../img/loading-circle.gif";
     div.appendChild(image);
 });
+
 
 getArray.then((value) => {
     setTimeout(() => {
