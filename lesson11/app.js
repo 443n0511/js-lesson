@@ -11,13 +11,17 @@ fetch(getJsonUrl)
     .then(data => { getJsonData(data.data);})
     .catch((e) => { console.log(e) })
 
-function getJsonData(data) {
-    if (data) {
-        const jsonData = data;
+function lodingImage(){
         let image = document.createElement("img");
         image.id = "lodingImage";
         image.src = "../img/loading-circle.gif";
         div.appendChild(image);
+    }
+
+function getJsonData(data) {
+    if (data) {
+        const jsonData = data;
+        lodingImage();
             setTimeout(() => {
                 let lodingImage = document.getElementById("lodingImage");
                 lodingImage.remove();
