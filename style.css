@@ -1,3 +1,36 @@
 .remove-button{
     display:none;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content{
+    background-color: white;
+    width: 500px;
+    margin: 20% auto;
+    }
+    .modal-body{
+        padding: 1em;
+    }
+
+    .modal-title{
+        text-align: center;
+        font-size: 1em;
+        font-weight: 500;
+        margin: 2em auto;
+    }
+
+    .modal-button{
+        margin: 0 auto;
+        display: block;
+    }
