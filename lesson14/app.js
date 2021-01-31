@@ -7,6 +7,7 @@ const button = document.getElementById("js-button");
 const modalBotton = document.getElementById('js-modalBotton');
 const modal = document.getElementById('modal');
 const getDataButton = document.getElementById('js-getDataButton');
+const number = document.getElementById('number');
 
 div.appendChild(ul);
 
@@ -50,7 +51,6 @@ modalBotton.addEventListener('click', function () {
     modal.style.display = 'block';
 });
 
-getDataButton.addEventListener('click', lodingJsonData, false);
 
 window.addEventListener('click', function (e) {
     if (e.target == modal) {
@@ -58,3 +58,18 @@ window.addEventListener('click', function (e) {
     }
 });
 
+getDataButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (number.value == "") {
+        alert('入力してください。');
+        return false;
+    } else {
+        const getNumber = new Promise((resolve) => {
+            resolve(number.value);
+        });
+        getNumber.then((value) => {
+            console.log(`入力された値は${value}です`);
+        });
+        lodingJsonData();
+    }
+});

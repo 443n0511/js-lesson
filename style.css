@@ -24,13 +24,7 @@
     }
 
     .modal-title{
-        text-align: center;
         font-size: 1em;
         font-weight: 500;
-        margin: 2em auto;
-    }
-
-    .modal-button{
-        margin: 0 auto;
-        display: block;
+        margin: 1em auto;
     }

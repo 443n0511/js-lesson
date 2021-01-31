@@ -11,14 +11,22 @@
 </head>
 
 <body>
-    <button id="js-modalBotton">モーダル</button>
+    <button id="js-modalBotton">モーダルを表示</button>
     <div id="js-parent">
     </div>
     <div id="modal" class="modal">
         <div class="modal-content">
           <div class="modal-body">
-            <h1 class="modal-title">下記のボタンを押してデータを取得してください</h1>
-            <button id="js-getDataButton" class="modal-button">データ取得</button>
+            <h1 class="modal-title">numberを入力してください</h1>
+            <form action="" method="get" name="form">
+                <div>
+                  <label for="number">number</label>
+                  <input type="number" name="number" id="number" required>
+                </div>
+                <div>
+                  <input type="submit" value="送信" id="js-getDataButton">
+                </div>
+              </form>
           </div>
         </div>
       </div>
