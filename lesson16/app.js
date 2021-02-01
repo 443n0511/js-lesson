@@ -1,4 +1,4 @@
-// 問題１４
+// 問題１６
 
 const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
@@ -8,8 +8,7 @@ const modalBotton = document.getElementById('js-modalBotton');
 const modal = document.getElementById('modal');
 const getDataButton = document.getElementById('js-getDataButton');
 const number = document.getElementById('number');
-
-
+const yorName = document.getElementById('name');
 
 div.appendChild(ul);
 
@@ -61,16 +60,29 @@ window.addEventListener('click', function (e) {
 });
 
 getDataButton.addEventListener('click', (e) => {
+    e.preventDefault();
     if (number.value == "") {
-        alert('入力してください。');
+        alert('numberを入力してください。');
         return false;
-    } else {
+    } else if(yorName.value == ""){
+        alert('nameを入力してください。');
+        return false;
+    }else{
         const getNumber = new Promise((resolve) => {
             resolve(number.value);
         });
         getNumber.then((value) => {
             console.log(`入力された値は${value}です`);
         });
+        const getName = new Promise((resolve) => {
+            resolve(yorName.value);
+        });
+        getName.then((value) => {
+            console.log(`${value}さん、こんにちは`);
+        });
+
+
+
         lodingJsonData();
     }
 });

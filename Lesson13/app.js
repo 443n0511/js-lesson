@@ -1,5 +1,4 @@
 // 問題１３
-
 const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
 const getJsonUrl = "https://jsondata.okiba.me/v1/json/s7zm3210129115033";
