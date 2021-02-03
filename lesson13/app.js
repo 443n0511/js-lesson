@@ -45,13 +45,13 @@ function getJsonData(data) {
     }
 }
 
-modalBotton.addEventListener('click', function () {
+modalBotton.addEventListener('click',()=> {
     modal.style.display = 'block';
 });
 
 getDataButton.addEventListener('click', lodingJsonData, false);
 
-window.addEventListener('click', function (e) {
+window.addEventListener('click',(e)=> {
     if (e.target == modal) {
         modal.style.display = 'none';
     }

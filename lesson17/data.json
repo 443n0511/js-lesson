@@ -1,0 +1,63 @@
+{"data": [
+    {
+        "contents": "ニュース",
+        "id":"news",
+        "text":[
+            {"content":"ニュースの１番めの記事ですよ！","comment":"0","new":"true"},
+            {"content":"ニュースの２番めの記事ですよ！","comment":"10","new":"false"},
+            {"content":"ニュースの３番めの記事ですよ！","comment":"21","new":"false"},
+            {"content":"ニュースの４番めの記事ですよ！","comment":"59","new":"false"}
+        ],
+        "img":"../img/news.png",
+        "default": "true"
+        },
+    {
+        "contents": "エンタメ",
+        "id":"entame",
+        "text":[
+            {"content":"エンタメの１番めの記事ですよ！","comment":"1","new":"true"},
+            {"content":"エンタメの２番めの記事ですよ！","comment":"10","new":"false"},
+            {"content":"エンタメの３番めの記事ですよ！","comment":"27","new":"false"},
+            {"content":"エンタメの４番めの記事ですよ！","comment":"60","new":"false"}
+        ],
+        "img":"../img/entame.png",
+        "default": "false"
+        },
+    {
+        "contents": "経済",
+        "id":"keizai",
+        "text":[
+            {"content":"経済の１番めの記事ですよ！","comment":"98","new":"true"},
+            {"content":"経済の２番めの記事ですよ！","comment":"10","new":"false"},
+            {"content":"経済の３番めの記事ですよ！","comment":"100","new":"false"},
+            {"content":"経済の４番めの記事ですよ！","comment":"32","new":"false"}
+        ],
+        "img":"../img/keizai.png",
+        "default": "false"
+        },
+    {
+        "contents": "スポーツ",
+        "id":"sports",
+        "text":[
+            {"content":"スポーツの１番めの記事ですよ！","comment":"0","new":"true"},
+            {"content":"スポーツの２番めの記事ですよ！","comment":"10","new":"false"},
+            {"content":"スポーツの３番めの記事ですよ！","comment":"20","new":"false"},
+            {"content":"スポーツの４番めの記事ですよ！","comment":"30","new":"false"}
+        ],
+        "img":"../img/sports.png",
+        "default": "false"
+        },
+    {
+    "contents": "国内",
+    "id":"kokunai",
+    "text":[
+        {"content":"国内の１番めの記事ですよ！","comment":"0","new":"true"},
+        {"content":"国内の２番めの記事ですよ！","comment":"10","new":"false"},
+        {"content":"国内の３番めの記事ですよ！","comment":"20","new":"false"},
+        {"content":"国内の４番めの記事ですよ！","comment":"30","new":"false"}
+    ],
+    "img":"../img/seiji_naikaku.png",
+    "default": "false"
+    }
+    ]}
+    
