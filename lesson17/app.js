@@ -87,10 +87,7 @@ const getJsonData = (data) => {
             console.log(tabContentsContainer);
             tabSwitch();
         } catch (e) {
-            let tabItem = document.createElement("li");
-            tabs.appendChild(tabItem);
-            tabItem.classList.add("tab_item");
-            tabItem.textContent = "ただいまサーバー側で通信がぶっ壊れています";
+            tabsContainer.textContent = "ただいまサーバー側で通信がぶっ壊れています";
         } finally {
             console.log("処理を終了しました");
         }
