@@ -8,6 +8,4 @@ a.textContent = "これです";
 a.href = "../lesson1/index.html";
 img.src = "../img/bookmark.png";
 
-ul.appendChild(li);
-li.appendChild(a);
-a.appendChild(img);
+ul.appendChild(li).appendChild(a).appendChild(img);

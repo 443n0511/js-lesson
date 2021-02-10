@@ -13,19 +13,14 @@ const getArray = new Promise((resolve) => {
 
 getArray.then((value) => {
     setTimeout(() => {
-    let lodingImage = document.getElementById("lodingImage");
-    lodingImage.remove();
-    value.forEach((a) => {
-        let li = document.createElement("li");
-        let anchor = document.createElement("a");
-        let image = document.createElement("img");
-        anchor.href = a.to;
-        anchor.textContent = a.text;
-        image.alt = a.alt;
-        image.src = a.img;
-        ul.appendChild(li);
-        li.appendChild(anchor);
-        anchor.appendChild(image);
-    })
+        let lodingImage = document.getElementById("lodingImage");
+        lodingImage.remove();
+    const template = (value) => `<li><a href="${value.to} "><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
+    value.reduce((prev, current) => {
+        prev.push(template(current));
+        ul.innerHTML = prev.join('');
+        return prev;
+    }, [])
 }, 3000);
 });
+
