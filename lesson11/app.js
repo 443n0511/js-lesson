@@ -25,22 +25,16 @@ function getJsonData(data) {
             setTimeout(() => {
                 let lodingImage = document.getElementById("lodingImage");
                 lodingImage.remove();
-                for (let i = 0; i < jsonData.length; i++) {
-                    let li = document.createElement("li");
-                    let anchor = document.createElement("a");
-                    let image = document.createElement("img");
-                    anchor.href = jsonData[i].to;
-                    anchor.textContent = jsonData[i].text;
-                    image.alt = jsonData[i].alt;
-                    image.src = jsonData[i].img;
-                    ul.appendChild(li);
-                    li.appendChild(anchor);
-                    anchor.appendChild(image);
-            }
+                    const template = (jsonData) => `<li><a href="${jsonData.to} "><img src="${jsonData.img}" alt="${jsonData.alt}">${jsonData.text}</a></li>`;
+                    jsonData.reduce((prev, current) => {
+                        prev.push(template(current));
+                        ul.innerHTML = prev.join('');
+                        return prev;
+                    }, [])
             }, 3000);
-        
     }
 }
 getJsonData();
+
 
 

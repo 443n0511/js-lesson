@@ -22,19 +22,13 @@ async function insertArray() {
     await await3seconds()
     let lodingImage = document.getElementById("lodingImage");
     lodingImage.remove();
-    getArray().then(value => {
-        value.forEach((a) => {
-            let li = document.createElement("li");
-            let anchor = document.createElement("a");
-            let image = document.createElement("img");
-            ul.appendChild(li);
-            li.appendChild(anchor);
-            anchor.href = a.to;
-            anchor.textContent = a.text;
-            image.alt = a.alt;
-            image.src = a.img;
-            anchor.appendChild(image);
-        })
+    getArray().then((value) => {
+        const template = (value) => `<li><a href="${value.to} "><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
+        value.reduce((prev, current) => {
+            prev.push(template(current));
+            ul.innerHTML = prev.join('');
+            return prev;
+        }, [])
     });
 };
 
