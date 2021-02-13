@@ -1,100 +1,134 @@
 const getJsonUrl = "data.json";
-const ul = document.getElementById("js-parent");
-const tabsContainer = document.createElement("li");
-const tabContentsContainer = document.createElement("li");
-const tabs = document.createElement("ul");
-const tabContents = document.createElement("ul");
-tabsContainer.classList.add("tabs_container");
-tabContentsContainer.classList.add("tab_contents_container");
-tabs.classList.add("tabs");
-tabContents.classList.add("tab_contents");
-ul.prepend(tabsContainer);
-ul.appendChild(tabContentsContainer).appendChild(tabContents);
-tabsContainer.appendChild(tabs);
-function lodingJsonData() {
-    fetch(getJsonUrl)
-        .then(response => response.json())
-        .then(data => { getJsonData(data.data); })
-        .catch((e) => { console.log(e) });
-} lodingJsonData();
+const toDomUl = document.getElementById("js-parent");
+
+//カテゴリタブ
+const tabsUl = document.createElement("ul");
+tabsUl.classList.add("tabs");
+const tabsContainerLi = document.createElement("li");
+tabsContainerLi.classList.add("tabs_container");
+
+//カテゴリ記事
+const tabContentsUl = document.createElement("ul");
+tabContentsUl.classList.add("tab_contents");
+const tabContentsContainerLi = document.createElement("li");
+tabContentsContainerLi.classList.add("tab_contents_container");
+
+//カテゴリタブ・記事をDOMへ
+toDomUl.prepend(tabsContainerLi);
+toDomUl.appendChild(tabContentsContainerLi).appendChild(tabContentsUl);
+tabsContainerLi.appendChild(tabsUl);
+
+
 const getJsonData = (data) => {
     return new Promise((resolve) => {
         resolve(data);
         const tabsFragment = document.createDocumentFragment();
         const contentsFragment = document.createDocumentFragment();
+
         try {
             data.reduce((prev, current, arr) => {
-                const tabItem = document.createElement("li");
-                tabItem.classList.add("tab_item");
-                tabItem.dataset.id = data[arr].id;
-                tabItem.textContent = data[arr].contents;
-                let tabContent = document.createElement("li");
-                tabContent.classList.add("tab_content");
-                tabContent.id = data[arr].id;
-                let tabContentDescription = document.createElement("ul");
-                tabContentDescription.classList.add("tab_content_description");
+                const dataId = data[arr].id;
+
+                //各タブ生成
+                const tabItemLi = document.createElement("li");
+                tabItemLi.classList.add("tab_item");
+                tabItemLi.dataset.id = dataId;
+                tabItemLi.textContent = data[arr].contents;
+
+                //各コンテンツ生成
+                const tabContentLi = document.createElement("li");
+                tabContentLi.classList.add("tab_content");
+                tabContentLi.id = dataId;
+
+                //コンテンツ内記事データ生成
+                const tabContentDescriptionUl = document.createElement("ul");
                 for (const setContent of data[arr].text) {
-                    let tabContentList = document.createElement("li");
-                    let tabContentArticle = document.createElement("article");
-                    let tabContentText = document.createElement("p");
-                    tabContentDescription.appendChild(tabContentList).appendChild(tabContentArticle).appendChild(tabContentText);
-                    tabContentText.classList.add("tab_content_text");
-                    tabContentList.classList.add("tab_content_list");
-                    tabContentArticle.classList.add("tab_content_article");
-                    tabContentText.textContent = setContent.content;
-                    if (setContent.new == "true") {
-                        let newContent = document.createElement("span");
-                        tabContentText.appendChild(newContent);
+                    const tabContentDescriptionLi = document.createElement("li");
+                    tabContentDescriptionLi.classList.add("tab_content-description_li");
+                    const tabContentDescriptionArticle = document.createElement("article");
+                    tabContentDescriptionArticle.classList.add("tab_content-description_Article");
+                    const tabContentDescriptionP = document.createElement("p");
+
+                    tabContentDescriptionUl.appendChild(tabContentDescriptionLi)
+                    .appendChild(tabContentDescriptionArticle)
+                    .appendChild(tabContentDescriptionP)
+                    .textContent = setContent.content;
+
+                    if (setContent.new == true) {
+                        const newContent = document.createElement("span");
+                        tabContentDescriptionP.appendChild(newContent);
                         newContent.classList.add("new");
                         newContent.textContent = "new";
                     }
-                    if (setContent.comment !== "0") {
-                        let comment = document.createElement("span");
-                        let commentImg = document.createElement("img");
-                        tabContentArticle.appendChild(comment);
+                    
+                    if (setContent.comment !== 0) {
+                        const comment = document.createElement("span");
                         comment.classList.add("comment");
-                        comment.textContent = setContent.comment;
-                        tabContentText.appendChild(commentImg);
-                        commentImg.src = "../img/comment.png";
+                        const commentImg = document.createElement("img");
+                        tabContentDescriptionArticle.appendChild(comment)
+                        .textContent = setContent.comment;
+                        tabContentDescriptionP.appendChild(commentImg)
+                        .src = "../img/comment.png";
                     }
                 }
-                if (data[arr].default == "true") {
-                    tabItem.classList.add("is-active");
-                    tabContent.classList.add("is-show");
+
+                //タブの初期表示
+                if (data[arr].default == true) {
+                    tabItemLi.classList.add("is-active");
+                    tabContentLi.classList.add("is-show");
                 }
-                tabsFragment.appendChild(tabItem);
-                contentsFragment.appendChild(tabContents).appendChild(tabContent).appendChild(tabContentDescription);
-                let tabContentImg = document.createElement("p");
-                let img = document.createElement("img");
-                tabContentImg.classList.add("tab_content_img");
-                tabContent.appendChild(tabContentImg).appendChild(img);
-                img.src = data[arr].img;
+                //タブ・記事データをフラグメントに入れる
+                tabsFragment.appendChild(tabItemLi);
+                contentsFragment.appendChild(tabContentsUl)
+                .appendChild(tabContentLi)
+                .appendChild(tabContentDescriptionUl);
+
+                //カテゴリ画像表示させる
+                const tabContentImgP = document.createElement("p");
+                tabContentImgP.classList.add("tab_content_img");
+                const img = document.createElement("img");
+                tabContentLi.appendChild(tabContentImgP)
+                .appendChild(img)
+                .src = data[arr].img;
+
                 return prev;
             }, [])
-            tabs.appendChild(tabsFragment);
-            tabContentsContainer.appendChild(contentsFragment);
+
+            tabsUl.appendChild(tabsFragment);
+            tabContentsContainerLi.appendChild(contentsFragment);
+
             tabSwitch();
+        
         } catch (e) {
-            tabsContainer.textContent = "ただいまサーバー側で通信がぶっ壊れています";
+            tabsContainerLi.textContent = "ただいまサーバー側で通信がぶっ壊れています";
             console.error(e.message);
         } finally {
             console.log("処理を終了しました");
         }
     });
 };
+
+
+function lodingJsonData() {
+    fetch(getJsonUrl)
+        .then(response => response.json())
+        .then(data => { getJsonData(data.data); })
+        .catch((e) => { console.log(e) });
+}lodingJsonData();
+
 function tabSwitch() {
     const tabTriggers = document.querySelectorAll('.tab_item');
     const tabTargets = document.querySelectorAll('.tab_content');
-    for (let i = 0; i < tabTriggers.length; i++) {
-        tabTriggers[i].addEventListener('click', (e) => {
-            let currentMenu = e.currentTarget;
-            let currentContent = document.getElementById(currentMenu.dataset.id);
-            for (let i = 0; i < tabTriggers.length; i++) {
-                tabTriggers[i].classList.remove('is-active');
+    for (let a = 0; a < tabTriggers.length; a++) {
+        tabTriggers[a].addEventListener('click', (e) => {
+            const currentMenu = e.currentTarget;
+            const currentContent = document.getElementById(currentMenu.dataset.id);
+            for (let b = 0; b < tabTriggers.length; b++) {
+                tabTriggers[b].classList.remove('is-active');
             }
             currentMenu.classList.add('is-active');
-            for (let i = 0; i < tabTargets.length; i++) {
-                tabTargets[i].classList.remove('is-show');
+            for (let c = 0; c < tabTargets.length; c++) {
+                tabTargets[c].classList.remove('is-show');
             }
             if (currentContent !== null) {
                 currentContent.classList.add('is-show');
