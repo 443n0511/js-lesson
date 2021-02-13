@@ -50,9 +50,9 @@ const getJsonData = (data) => {
                     const tabContentDescriptionP = document.createElement("p");
 
                     tabContentDescriptionUl.appendChild(tabContentDescriptionLi)
-                    .appendChild(tabContentDescriptionArticle)
-                    .appendChild(tabContentDescriptionP)
-                    .textContent = setContent.content;
+                        .appendChild(tabContentDescriptionArticle)
+                        .appendChild(tabContentDescriptionP)
+                        .textContent = setContent.content;
 
                     if (setContent.new == true) {
                         const newContent = document.createElement("span");
@@ -60,15 +60,15 @@ const getJsonData = (data) => {
                         newContent.classList.add("new");
                         newContent.textContent = "new";
                     }
-                    
+
                     if (setContent.comment !== 0) {
                         const comment = document.createElement("span");
                         comment.classList.add("comment");
                         const commentImg = document.createElement("img");
                         tabContentDescriptionArticle.appendChild(comment)
-                        .textContent = setContent.comment;
+                            .textContent = setContent.comment;
                         tabContentDescriptionP.appendChild(commentImg)
-                        .src = "../img/comment.png";
+                            .src = "../img/comment.png";
                     }
                 }
 
@@ -80,16 +80,16 @@ const getJsonData = (data) => {
                 //タブ・記事データをフラグメントに入れる
                 tabsFragment.appendChild(tabItemLi);
                 contentsFragment.appendChild(tabContentsUl)
-                .appendChild(tabContentLi)
-                .appendChild(tabContentDescriptionUl);
+                    .appendChild(tabContentLi)
+                    .appendChild(tabContentDescriptionUl);
 
                 //カテゴリ画像表示させる
                 const tabContentImgP = document.createElement("p");
                 tabContentImgP.classList.add("tab_content_img");
                 const img = document.createElement("img");
                 tabContentLi.appendChild(tabContentImgP)
-                .appendChild(img)
-                .src = data[arr].img;
+                    .appendChild(img)
+                    .src = data[arr].img;
 
                 return prev;
             }, [])
@@ -98,7 +98,7 @@ const getJsonData = (data) => {
             tabContentsContainerLi.appendChild(contentsFragment);
 
             tabSwitch();
-        
+
         } catch (e) {
             tabsContainerLi.textContent = "ただいまサーバー側で通信がぶっ壊れています";
             console.error(e.message);
@@ -114,7 +114,7 @@ function lodingJsonData() {
         .then(response => response.json())
         .then(data => { getJsonData(data.data); })
         .catch((e) => { console.log(e) });
-}lodingJsonData();
+} lodingJsonData();
 
 function tabSwitch() {
     const tabTriggers = document.querySelectorAll('.tab_item');
