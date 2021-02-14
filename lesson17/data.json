@@ -1,63 +1,63 @@
 {"data": [
     {
-        "contents": "ニュース",
+        "category": "ニュース",
         "id":"news",
-        "text":[
-            {"content":"ニュースの１番めの記事ですよ！","comment":0,"new":true},
-            {"content":"ニュースの２番めの記事ですよ！","comment":10,"new":false},
-            {"content":"ニュースの３番めの記事ですよ！","comment":21,"new":false},
-            {"content":"ニュースの４番めの記事ですよ！","comment":59,"new":false}
+        "articles":[
+            {"title":"ニュースの１番めの記事ですよ！","commentCount":0,"isNew":true},
+            {"title":"ニュースの２番めの記事ですよ！","commentCount":10,"isNew":false},
+            {"title":"ニュースの３番めの記事ですよ！","commentCount":21,"isNew":false},
+            {"title":"ニュースの４番めの記事ですよ！","commentCount":59,"isNew":false}
         ],
-        "img":"../img/news.png",
-        "default": true
+        "img":"../img/isNews.png",
+        "isOpen": true
         },
     {
-        "contents": "エンタメ",
+        "category": "エンタメ",
         "id":"entame",
-        "text":[
-            {"content":"エンタメの１番めの記事ですよ！","comment":1,"new":true},
-            {"content":"エンタメの２番めの記事ですよ！","comment":10,"new":false},
-            {"content":"エンタメの３番めの記事ですよ！","comment":27,"new":false},
-            {"content":"エンタメの４番めの記事ですよ！","comment":60,"new":false}
+        "articles":[
+            {"title":"エンタメの１番めの記事ですよ！","commentCount":1,"isNew":true},
+            {"title":"エンタメの２番めの記事ですよ！","commentCount":10,"isNew":false},
+            {"title":"エンタメの３番めの記事ですよ！","commentCount":27,"isNew":false},
+            {"title":"エンタメの４番めの記事ですよ！","commentCount":60,"isNew":false}
         ],
         "img":"../img/entame.png",
-        "default": false
+        "isOpen": false
         },
     {
-        "contents": "経済",
+        "category": "経済",
         "id":"keizai",
-        "text":[
-            {"content":"経済の１番めの記事ですよ！","comment":98,"new":true},
-            {"content":"経済の２番めの記事ですよ！","comment":10,"new":false},
-            {"content":"経済の３番めの記事ですよ！","comment":100,"new":false},
-            {"content":"経済の４番めの記事ですよ！","comment":32,"new":false}
+        "articles":[
+            {"title":"経済の１番めの記事ですよ！","commentCount":98,"isNew":true},
+            {"title":"経済の２番めの記事ですよ！","commentCount":10,"isNew":false},
+            {"title":"経済の３番めの記事ですよ！","commentCount":100,"isNew":false},
+            {"title":"経済の４番めの記事ですよ！","commentCount":32,"isNew":false}
         ],
         "img":"../img/keizai.png",
-        "default": false
+        "isOpen": false
         },
     {
-        "contents": "スポーツ",
+        "category": "スポーツ",
         "id":"sports",
-        "text":[
-            {"content":"スポーツの１番めの記事ですよ！","comment":0,"new":true},
-            {"content":"スポーツの２番めの記事ですよ！","comment":10,"new":false},
-            {"content":"スポーツの３番めの記事ですよ！","comment":20,"new":false},
-            {"content":"スポーツの４番めの記事ですよ！","comment":30,"new":false}
+        "articles":[
+            {"title":"スポーツの１番めの記事ですよ！","commentCount":0,"isNew":true},
+            {"title":"スポーツの２番めの記事ですよ！","commentCount":10,"isNew":false},
+            {"title":"スポーツの３番めの記事ですよ！","commentCount":20,"isNew":false},
+            {"title":"スポーツの４番めの記事ですよ！","commentCount":30,"isNew":false}
         ],
         "img":"../img/sports.png",
-        "default": false
+        "isOpen": false
         },
     {
-    "contents": "国内",
+    "category": "国内",
     "id":"kokunai",
-    "text":[
-        {"content":"国内の１番めの記事ですよ！","comment":0,"new":true},
-        {"content":"国内の２番めの記事ですよ！","comment":10,"new":false},
-        {"content":"国内の３番めの記事ですよ！","comment":20,"new":false},
-        {"content":"国内の４番めの記事ですよ！","comment":30,"new":false}
+    "articles":[
+        {"title":"国内の１番めの記事ですよ！","commentCount":0,"isNew":true},
+        {"title":"国内の２番めの記事ですよ！","commentCount":10,"isNew":false},
+        {"title":"国内の３番めの記事ですよ！","commentCount":20,"isNew":false},
+        {"title":"国内の４番めの記事ですよ！","commentCount":30,"isNew":false}
     ],
     "img":"../img/seiji_naikaku.png",
-    "default": false
+    "isOpen": false
     }
     ]}
     
