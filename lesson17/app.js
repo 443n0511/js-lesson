@@ -1,8 +1,6 @@
 const getJsonUrl = "data.json";
 const toDomUl = document.getElementById("js-parent");
 
-
-
 //カテゴリタブ
 const tabsUl = document.createElement("ul");
 tabsUl.classList.add("tabs");
@@ -22,31 +20,36 @@ toDomUl.prepend(tabsContainerLi);
 toDomUl.appendChild(tabContentsContainerLi).appendChild(tabContentsUl);
 tabsContainerLi.appendChild(tabsUl);
 
-const getJsonData = ((data) => {
 
-    new Promise(function (resolve, reject) {
-        return resolve(data);
-    })
-        .then(createOfTab)
-        .then(createOfTabContents)
-        .then(InitialSettingOfTab)
-        .then(displayOfCategoryImage)
-        .then(tabSwitch)
-        .catch((e) => {
-            console.log(e); tabsContainerLi.textContent = "ただいまサーバー側で通信がぶっ壊れています";
-        });
-});
-
+lodingJsonData();
 
 
 function lodingJsonData() {
-    fetch(getJsonUrl)
-        .then(response => response.json())
-        .then(data => { getJsonData(data.data); })
-        .catch((e) => { console.log(e) });
-} lodingJsonData();
-
-
+    try {
+        fetch(getJsonUrl)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`データがないよ！`);
+                }
+            })
+            .then(value => {
+                const jsonData = value.data;
+                createOfTab(jsonData);
+                createOfTabContents(jsonData);
+                displayOfCategoryImage(jsonData);
+                InitialSettingOfTab(jsonData);
+                addIsNewIcon(jsonData);
+                numberOfDisplayComments(jsonData);
+                tabSwitch();
+            })
+    } catch {
+        console.log('ただいまサーバー側がぶっこわれています。');
+    } finally {
+        console.log('終了しました')
+    }
+}
 
 
 function createOfTab(value) {
@@ -55,29 +58,36 @@ function createOfTab(value) {
         tabItemLi.classList.add("tab_item");
         tabItemLi.dataset.id = value[index].id;
         tabItemLi.textContent = value[index].category;
-        console.log(tabItemLi);
         tabsFragment.appendChild(tabItemLi);
         return prev;
     }, [])
     tabsUl.appendChild(tabsFragment);
-    return value;
 }
 
-
-function InitialSettingOfTab(value) {
-    const tabTriggers = document.querySelectorAll('.tab_item');
-    const tabTargets = document.querySelectorAll('.tab_content');
+function createOfTabContents(value) {
     value.reduce((prev, current, index) => {
-        if (value[index].isOpen === true) {
-            tabTriggers[index].classList.add("is-active");
-            tabTargets[index].classList.add("is-show");
-            
-        } else {
-            tabTriggers[index].classList.remove("is-active");
+        const tabContentLi = document.createElement("li");
+        tabContentLi.classList.add("tab_content");
+        tabContentLi.id = value[index].id;
+        const tabContentDescriptionUl = document.createElement("ul");
+        for (let i = 0; i < value[index].articles.length; i++) {
+            const tabContentDescriptionLi = document.createElement("li");
+            tabContentDescriptionLi.classList.add("tab_content-description_li");
+            const tabContentDescriptionArticle = document.createElement("article");
+            tabContentDescriptionArticle.classList.add("tab_content-description_Article");
+            const tabContentDescriptionP = document.createElement("p");
+            tabContentDescriptionP.id = `${value[index].id}-title_no${i}`;
+            tabContentDescriptionUl.appendChild(tabContentDescriptionLi)
+                .appendChild(tabContentDescriptionArticle)
+                .appendChild(tabContentDescriptionP)
+                .textContent = value[index].articles[i].title;
         }
+        contentsFragment.appendChild(tabContentLi)
+            .appendChild(tabContentDescriptionUl);
         return prev;
     }, [])
-    return value
+    tabContentsContainerLi.appendChild(tabContentsUl)
+        .appendChild(contentsFragment);
 }
 
 
@@ -95,50 +105,54 @@ function displayOfCategoryImage(value) {
 }
 
 
-function createOfTabContents(value) {
-
+function addIsNewIcon(value) {
     value.reduce((prev, current, index) => {
-        const tabContentLi = document.createElement("li");
-        tabContentLi.classList.add("tab_content");
-        tabContentLi.id = value[index].id;
-        const tabContentDescriptionUl = document.createElement("ul");
-        for (const setContent of value[index].articles) {
-
-            const tabContentDescriptionLi = document.createElement("li");
-            tabContentDescriptionLi.classList.add("tab_content-description_li");
-            const tabContentDescriptionArticle = document.createElement("article");
-            tabContentDescriptionArticle.classList.add("tab_content-description_Article");
-            const tabContentDescriptionP = document.createElement("p");
-
-            tabContentDescriptionUl.appendChild(tabContentDescriptionLi)
-                .appendChild(tabContentDescriptionArticle)
-                .appendChild(tabContentDescriptionP)
-                .textContent = setContent.title;
-
-            if (setContent.isNew === true) {
-                const newContent = document.createElement("span");
-                tabContentDescriptionP.appendChild(newContent);
-                newContent.classList.add("new");
-                newContent.textContent = "new";
-            }
-
-            if (setContent.commentCount > 0) {
-                const comment = document.createElement("span");
-                comment.classList.add("comment");
-                const commentImg = document.createElement("img");
-                tabContentDescriptionArticle.appendChild(comment)
-                    .textContent = setContent.commentCount;
-                tabContentDescriptionP.appendChild(commentImg)
-                    .src = "../img/comment.png";
+        for (let i = 0; i < value[index].articles.length; i++) {
+            const setIsNew = value[index].articles[i].isNew;
+            const tabContentDescriptionP = document.getElementById(`${value[index].id}-title_no${i}`);
+            const isNewContent = document.createElement("span");
+            if (setIsNew === true) {
+                tabContentDescriptionP.appendChild(isNewContent);
+                isNewContent.classList.add("new");
+                isNewContent.textContent = "new";
             }
         }
-        contentsFragment.appendChild(tabContentLi)
-            .appendChild(tabContentDescriptionUl);
         return prev;
     }, [])
-    tabContentsUl.appendChild(contentsFragment);
-    tabContentsContainerLi.appendChild(tabContentsUl);
-    return value
+}
+
+function numberOfDisplayComments(value) {
+    value.reduce((prev, current, index) => {
+        for (let i = 0; i < value[index].articles.length; i++) {
+            const setCommentCount = value[index].articles[i].commentCount;
+            const tabContentDescriptionP = document.getElementById(`${value[index].id}-title_no${i}`);
+            const comment = document.createElement("span");
+            comment.classList.add("comment");
+            const commentImg = document.createElement("img");
+            if (setCommentCount > 0) {
+                comment.textContent = setCommentCount;
+                tabContentDescriptionP.appendChild(commentImg)
+                    .src = "../img/comment.png"
+                tabContentDescriptionP.appendChild(comment)
+            }
+        }
+        return prev;
+    }, [])
+}
+
+function InitialSettingOfTab(value) {
+    const tabTriggers = document.querySelectorAll('.tab_item');
+    const tabTargets = document.querySelectorAll('.tab_content');
+    value.reduce((prev, current, index) => {
+        if (value[index].isOpen === true) {
+            tabTriggers[index].classList.add("is-active");
+            tabTargets[index].classList.add("is-show");
+
+        } else {
+            tabTriggers[index].classList.remove("is-active");
+        }
+        return prev;
+    }, [])
 }
 
 function tabSwitch() {
