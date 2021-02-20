@@ -36,13 +36,7 @@ function lodingJsonData() {
             })
             .then(value => {
                 const jsonData = value.data;
-                createOfTab(jsonData);
-                createOfTabContents(jsonData);
-                displayOfCategoryImage(jsonData);
-                InitialSettingOfTab(jsonData);
-                addIsNewIcon(jsonData);
-                numberOfDisplayComments(jsonData);
-                tabSwitch();
+                getJsonData(jsonData);
             })
     } catch {
         console.log('ただいまサーバー側がぶっこわれています。');
@@ -51,6 +45,16 @@ function lodingJsonData() {
     }
 }
 
+function getJsonData(value) {
+    createOfTab(value);
+    createOfTabContents(value);
+    displayOfCategoryImage(value);
+    InitialSettingOfTab(value);
+    addIsNewIcon(value);
+    numberOfDisplayComments(value);
+    tabSwitch();
+    return value;
+}
 
 function createOfTab(value) {
     value.reduce((prev, current, index) => {
@@ -88,6 +92,7 @@ function createOfTabContents(value) {
     }, [])
     tabContentsContainerLi.appendChild(tabContentsUl)
         .appendChild(contentsFragment);
+
 }
 
 
@@ -102,6 +107,7 @@ function displayOfCategoryImage(value) {
             .src = value[index].img;
         return prev;
     }, [])
+
 }
 
 
@@ -119,6 +125,8 @@ function addIsNewIcon(value) {
         }
         return prev;
     }, [])
+
+
 }
 
 function numberOfDisplayComments(value) {
@@ -138,6 +146,7 @@ function numberOfDisplayComments(value) {
         }
         return prev;
     }, [])
+
 }
 
 function InitialSettingOfTab(value) {
