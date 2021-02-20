@@ -18,7 +18,16 @@ function lodingImage(){
         div.appendChild(image);
     }
 
+
+
 function getJsonData(data) {
+toDomCreateErements(data);
+}
+
+
+
+
+function toDomCreateErements(data){
     if (data) {
         const jsonData = data;
         lodingImage();
@@ -27,14 +36,8 @@ function getJsonData(data) {
                 lodingImage.remove();
                     const template = (jsonData) => `<li><a href="${jsonData.to} "><img src="${jsonData.img}" alt="${jsonData.alt}">${jsonData.text}</a></li>`;
                     jsonData.reduce((prev, current) => {
-                        prev.push(template(current));
-                        ul.innerHTML = prev.join('');
-                        return prev;
+                        return  ul.innerHTML = [...prev, template(current)];
                     }, [])
             }, 3000);
     }
 }
-getJsonData();
-
-
-
