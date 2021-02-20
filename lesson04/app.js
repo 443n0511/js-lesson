@@ -6,8 +6,7 @@ const listContents = [{to: "bookmark.html", img: "../img/1.png", alt:"画像1", 
 const template = listContents => `<li><a href="${listContents.to} "><img src="${listContents.img}" alt="${listContents.alt}">${listContents.text}</a></li>`;
 
 const result = listContents.reduce((prev, current) => {
-    prev.push(template(current));
-  return prev;
+  return [...prev, template(current)]
 }, [])
 ul.innerHTML = result.join('');
 div.appendChild(ul);

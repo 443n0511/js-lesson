@@ -9,9 +9,7 @@ const getArray = new Promise((resolve) => {
 getArray.then((value) => {
     const template = (value) => `<li><a href="${value.to} "><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
     value.reduce((prev, current) => {
-        prev.push(template(current));
-        ul.innerHTML = prev.join('');
-        return prev;
+        return  ul.innerHTML = [...prev, template(current)];
     }, [])
 });
 div.appendChild(ul);

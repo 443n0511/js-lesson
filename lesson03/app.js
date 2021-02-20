@@ -5,7 +5,7 @@ const listContents = [
 ];
 const template = listContents => `<li><a href="${listContents.href} "><img src="${listContents.src}">${listContents.text}</a></li>`;
 const result = listContents.reduce((prev, current) => {
-      prev.push(template(current));
-    return prev;
+      // prev.push(template(current));
+      return [...prev, template(current)]
   }, [])
   document.getElementById("js-parent").innerHTML = result.join('');
