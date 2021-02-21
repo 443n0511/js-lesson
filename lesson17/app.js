@@ -1,4 +1,4 @@
-const getJsonUrl = "data.json";
+const getJsonUrl = "https://jsondata.okiba.me/v1/json/vcHUg210221022056";
 const toDomUl = document.getElementById("js-parent");
 
 //カテゴリタブ
@@ -21,31 +21,30 @@ toDomUl.appendChild(tabContentsContainerLi).appendChild(tabContentsUl);
 tabsContainerLi.appendChild(tabsUl);
 
 
-lodingJsonData();
 
-
-function lodingJsonData() {
+async function getJsonData() {
     try {
-        fetch(getJsonUrl)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error(`データがないよ！`);
-                }
-            })
-            .then(value => {
-                const jsonData = value.data;
-                getJsonData(jsonData);
-            })
-    } catch {
+        const response = await fetch(getJsonUrl);
+        const jsonData = await response.json();
+        createElements(jsonData.data);
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(`データがないよ！`);
+        }
+    } catch (err) {
+        console.error(err);
         console.log('ただいまサーバー側がぶっこわれています。');
     } finally {
-        console.log('終了しました')
+        console.log("終了しました");
     }
-}
+};
 
-function getJsonData(value) {
+getJsonData();
+
+
+
+function createElements(value) {
     createOfTab(value);
     createOfTabContents(value);
     displayOfCategoryImage(value);
