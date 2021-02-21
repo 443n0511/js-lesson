@@ -38,14 +38,12 @@ function displayLodingImage() {
 function toDomCreateErements(data) {
     if (data) {
         const jsonData = data;
-        setTimeout(() => {
             const lodingImage = document.getElementById("lodingImage");
             lodingImage.remove();
             const template = (jsonData) => `<li><a href="${jsonData.to} "><img src="${jsonData.img}" alt="${jsonData.alt}">${jsonData.text}</a></li>`;
             jsonData.reduce((prev, current) => {
                 return ul.innerHTML = [...prev, template(current)];
             }, [])
-        }, 3000);
     }
 }
 
