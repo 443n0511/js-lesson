@@ -4,7 +4,7 @@ const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
 const getJsonUrl = "https://jsondata.okiba.me/v1/json/s7zm3210129115033";
 div.appendChild(ul);
-
+displayLodingImage();
 const getJsonData = async () => {
     try {
         const response = await fetch(getJsonUrl);
@@ -20,15 +20,12 @@ getJsonData();
 function toDomCreateErements(data){
     if (data) {
         const jsonData = data;
-        displayLodingImage();
-            setTimeout(() => {
                 const lodingImage = document.getElementById("lodingImage");
                 lodingImage.remove();
                     const template = (jsonData) => `<li><a href="${jsonData.to} "><img src="${jsonData.img}" alt="${jsonData.alt}">${jsonData.text}</a></li>`;
                     jsonData.reduce((prev, current) => {
                         return  ul.innerHTML = [...prev, template(current)];
                     }, [])
-            }, 3000);
     }
 }
 
