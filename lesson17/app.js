@@ -20,39 +20,41 @@ toDomUl.prepend(tabsContainerLi);
 toDomUl.appendChild(tabContentsContainerLi).appendChild(tabContentsUl);
 tabsContainerLi.appendChild(tabsUl);
 
-
-
 async function getJsonData() {
     try {
         const response = await fetch(getJsonUrl);
         const jsonData = await response.json();
-        createElements(jsonData.data);
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error(`データがないよ！`);
-        }
+        return jsonData;
     } catch (err) {
-        console.error(err);
-        console.log('ただいまサーバー側がぶっこわれています。');
+        throw Error(err);
     } finally {
         console.log("終了しました");
     }
-};
+}
 
-getJsonData();
+async function init() {
+    let data;
+    try {
+        data = await getJsonData();
+    } catch (e) {
+        tabsUl.innerHTML = `error is ${e}`;
+    }
+    if (data.length !== 0) {
+        createElements(data);
+    } else {
+        tabsUl.innerHTML = "data is empty";
+    }
+}
+init();
 
-
-
-function createElements(value) {
-    createOfTab(value);
-    createOfTabContents(value);
-    displayOfCategoryImage(value);
-    InitialSettingOfTab(value);
-    addIsNewIcon(value);
-    numberOfDisplayComments(value);
+function createElements({ data }) {
+    createOfTab(data);
+    createOfTabContents(data);
+    displayOfCategoryImage(data);
+    InitialSettingOfTab(data);
+    addIsNewIcon(data);
+    numberOfDisplayComments(data);
     tabSwitch();
-    return value;
 }
 
 function createOfTab(value) {
@@ -63,7 +65,7 @@ function createOfTab(value) {
         tabItemLi.textContent = value[index].category;
         tabsFragment.appendChild(tabItemLi);
         return prev;
-    }, [])
+    }, []);
     tabsUl.appendChild(tabsFragment);
 }
 
@@ -77,23 +79,26 @@ function createOfTabContents(value) {
             const tabContentDescriptionLi = document.createElement("li");
             tabContentDescriptionLi.classList.add("tab_content-description_li");
             const tabContentDescriptionArticle = document.createElement("article");
-            tabContentDescriptionArticle.classList.add("tab_content-description_Article");
+            tabContentDescriptionArticle.classList.add(
+                "tab_content-description_Article"
+            );
             const tabContentDescriptionP = document.createElement("p");
             tabContentDescriptionP.id = `${value[index].id}-title_no${i}`;
-            tabContentDescriptionUl.appendChild(tabContentDescriptionLi)
+            tabContentDescriptionUl
+                .appendChild(tabContentDescriptionLi)
                 .appendChild(tabContentDescriptionArticle)
-                .appendChild(tabContentDescriptionP)
-                .textContent = value[index].articles[i].title;
+                .appendChild(tabContentDescriptionP).textContent =
+                value[index].articles[i].title;
         }
-        contentsFragment.appendChild(tabContentLi)
+        contentsFragment
+            .appendChild(tabContentLi)
             .appendChild(tabContentDescriptionUl);
         return prev;
-    }, [])
-    tabContentsContainerLi.appendChild(tabContentsUl)
+    }, []);
+    tabContentsContainerLi
+        .appendChild(tabContentsUl)
         .appendChild(contentsFragment);
-
 }
-
 
 function displayOfCategoryImage(value) {
     value.reduce((prev, current, index) => {
@@ -101,20 +106,19 @@ function displayOfCategoryImage(value) {
         const tabContentImgP = document.createElement("p");
         tabContentImgP.classList.add("tab_content_img");
         const img = document.createElement("img");
-        tabContentList.appendChild(tabContentImgP)
-            .appendChild(img)
-            .src = value[index].img;
+        tabContentList.appendChild(tabContentImgP).appendChild(img).src =
+            value[index].img;
         return prev;
-    }, [])
-
+    }, []);
 }
-
 
 function addIsNewIcon(value) {
     value.reduce((prev, current, index) => {
         for (let i = 0; i < value[index].articles.length; i++) {
             const setIsNew = value[index].articles[i].isNew;
-            const tabContentDescriptionP = document.getElementById(`${value[index].id}-title_no${i}`);
+            const tabContentDescriptionP = document.getElementById(
+                `${value[index].id}-title_no${i}`
+            );
             const isNewContent = document.createElement("span");
             if (setIsNew === true) {
                 tabContentDescriptionP.appendChild(isNewContent);
@@ -123,62 +127,60 @@ function addIsNewIcon(value) {
             }
         }
         return prev;
-    }, [])
-
-
+    }, []);
 }
 
 function numberOfDisplayComments(value) {
     value.reduce((prev, current, index) => {
         for (let i = 0; i < value[index].articles.length; i++) {
             const setCommentCount = value[index].articles[i].commentCount;
-            const tabContentDescriptionP = document.getElementById(`${value[index].id}-title_no${i}`);
+            const tabContentDescriptionP = document.getElementById(
+                `${value[index].id}-title_no${i}`
+            );
             const comment = document.createElement("span");
             comment.classList.add("comment");
             const commentImg = document.createElement("img");
             if (setCommentCount > 0) {
                 comment.textContent = setCommentCount;
-                tabContentDescriptionP.appendChild(commentImg)
-                    .src = "../img/comment.png"
-                tabContentDescriptionP.appendChild(comment)
+                tabContentDescriptionP.appendChild(commentImg).src =
+                    "../img/comment.png";
+                tabContentDescriptionP.appendChild(comment);
             }
         }
         return prev;
-    }, [])
-
+    }, []);
 }
 
 function InitialSettingOfTab(value) {
-    const tabTriggers = document.querySelectorAll('.tab_item');
-    const tabTargets = document.querySelectorAll('.tab_content');
+    const tabTriggers = document.querySelectorAll(".tab_item");
+    const tabTargets = document.querySelectorAll(".tab_content");
     value.reduce((prev, current, index) => {
         if (value[index].isOpen === true) {
             tabTriggers[index].classList.add("is-active");
             tabTargets[index].classList.add("is-show");
-
         } else {
             tabTriggers[index].classList.remove("is-active");
         }
         return prev;
-    }, [])
+    }, []);
 }
 
 function tabSwitch() {
-    const tabTriggers = document.querySelectorAll('.tab_item');
-    const tabTargets = document.querySelectorAll('.tab_content');
+    const tabTriggers = document.querySelectorAll(".tab_item");
+    const tabTargets = document.querySelectorAll(".tab_content");
     for (let a = 0; a < tabTriggers.length; a++) {
-        tabTriggers[a].addEventListener('click', (e) => {
+        tabTriggers[a].addEventListener("click", (e) => {
             const currentMenu = e.currentTarget;
             const currentContent = document.getElementById(currentMenu.dataset.id);
             for (let b = 0; b < tabTriggers.length; b++) {
-                tabTriggers[b].classList.remove('is-active');
+                tabTriggers[b].classList.remove("is-active");
             }
-            currentMenu.classList.add('is-active');
+            currentMenu.classList.add("is-active");
             for (let c = 0; c < tabTargets.length; c++) {
-                tabTargets[c].classList.remove('is-show');
+                tabTargets[c].classList.remove("is-show");
             }
             if (currentContent !== null) {
-                currentContent.classList.add('is-show');
+                currentContent.classList.add("is-show");
             }
         });
     }
