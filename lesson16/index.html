@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <title>TerraceTechフロントエンドエンジニア養成所</title>
+</head>
+
+<body>
+    <button id="js-modalButton">モーダルを表示</button>
+    <div id="js-parent">
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h1 class="modal-title">名前を入れてください</h1>
+            <form action="" method="get" name="form">
+                <div>
+                  <label for="number">number</label>
+                  <input type="number" name="number" id="number" required>
+                  <label for="name">名前</label>
+                  <input type="text" name="number" id="name" required>
+                </div>
+                <div>
+                  <input type="submit" value="送信" id="js-getDataButton">
+                  <input type="button" value="閉じる" id="js-closeButton">
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>
