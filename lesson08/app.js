@@ -7,10 +7,6 @@ const listContents = [{ to: "bookmark.html", img: "../img/1.png", alt: "画像1"
 div.appendChild(ul);
 const getArray = new Promise((resolve, reject) => {
     reject(listContents);
-    let image = document.createElement("img");
-    image.id = "lodingImage";
-    image.src = "../img/loading-circle.gif";
-    div.appendChild(image);
 });
 
 const createTmplate = (value) =>
@@ -29,5 +25,11 @@ getArray.then((value) => {
     console.error("Errorが発生しました");
 });
 
-
+function displayLodingImage(){
+    let image = document.createElement("img");
+    image.id = "lodingImage";
+    image.src = "../img/loading-circle.gif";
+    div.appendChild(image);
+}
+displayLodingImage();
 
