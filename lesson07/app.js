@@ -11,14 +11,16 @@ const getArray = new Promise((resolve) => {
     div.appendChild(image);
 });
 
+const createTmplate = (value) =>
+    `<li><a href="${value.to}"><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
+
 getArray.then((value) => {
     setTimeout(() => {
-        let lodingImage = document.getElementById("lodingImage");
-        lodingImage.remove();
-    const template = (value) => `<li><a href="${value.to} "><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
-    value.reduce((prev, current) => {
-        return  ul.innerHTML = [...prev, template(current)];
-    }, [])
-}, 3000);
+    let lodingImage = document.getElementById("lodingImage");
+    lodingImage.remove();
+    const result = value.reduce((prev, current) => {
+        return `${prev}${createTmplate(current)}`;
+    }, "");
+    div.appendChild(ul).innerHTML = result;
+},3000);
 });
-
