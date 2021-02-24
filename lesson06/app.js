@@ -6,13 +6,16 @@ const getArray = new Promise((resolve) => {
     resolve(listContents);
 });
 
+const createTmplate = (value) =>
+    `<li><a href="${value.to}"><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
+
 getArray.then((value) => {
     setTimeout(() => {
-    const template = (value) => `<li><a href="${value.to} "><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
-    value.reduce((prev, current) => {
-        return  ul.innerHTML = [...prev, template(current)];
-    }, [])
-}, 3000);
+    const result = value.reduce((prev, current) => {
+        return `${prev}${createTmplate(current)}`;
+    }, "");
+    div.appendChild(ul).innerHTML = result;
+},3000);
 });
 
-div.appendChild(ul);
+
