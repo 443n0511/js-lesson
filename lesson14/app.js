@@ -9,24 +9,30 @@ const closeButton = document.getElementById('js-closeButton');
 const modal = document.getElementById('modal');
 const getDataButton = document.getElementById('js-getDataButton');
 const number = document.getElementById('number');
-
-
+const createTmplate = (value) =>
+    `<li><a href="${value.to}"><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
 
 
 div.appendChild(ul);
 
-async function getJsonData() {
+const getJsonData = async () => {
     try {
         const response = await fetch(getJsonUrl);
         const jsonData = await response.json();
-        toDomCreateErements(jsonData.data);
+        return jsonData;
     } catch (err) {
         console.error(err);
     } finally {
         console.log("終了しました");
-      }
+    }
 };
 
+
+async function init() {
+    let data;
+    data = await getJsonData();
+    toDomCreateErements(data);
+}
 
 function displayLodingImage() {
     const image = document.createElement("img");
@@ -35,20 +41,20 @@ function displayLodingImage() {
     div.appendChild(image);
     modalButton.classList.add("remove-button");
     modal.style.display = 'none';
-    getJsonData();
+    init();
 
 }
 
 
-function toDomCreateErements(data) {
+function toDomCreateErements({data}){
     if (data) {
         const jsonData = data;
-                const lodingImage = document.getElementById("lodingImage");
-                lodingImage.remove();
-                    const template = (jsonData) => `<li><a href="${jsonData.to} "><img src="${jsonData.img}" alt="${jsonData.alt}">${jsonData.text}</a></li>`;
-                    jsonData.reduce((prev, current) => {
-                        return  ul.innerHTML = [...prev, template(current)];
-                    }, [])
+        const lodingImage = document.getElementById("lodingImage");
+        lodingImage.remove();
+                const result= jsonData.reduce((prev, current) => {
+                    return `${prev}${createTmplate(current)}`;
+                }, "");
+                ul.innerHTML = result;
     }
 }
 
@@ -76,3 +82,4 @@ getDataButton.addEventListener('click', (e) => {
         displayLodingImage();
     }
 });
+
