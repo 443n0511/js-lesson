@@ -23,7 +23,7 @@ async function init() {
     data = await getJsonData();
     toDomCreateErements(data);
 }
-init();
+
 
 function toDomCreateErements({data}){
     if (data) {
@@ -42,6 +42,7 @@ function displayLodingImage(){
     image.id = "lodingImage";
     image.src = "../img/loading-circle.gif";
     div.appendChild(image);
+    init();
 }
 
 displayLodingImage();
