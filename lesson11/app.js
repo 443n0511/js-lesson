@@ -28,7 +28,6 @@ init();
 function toDomCreateErements({data}){
     if (data) {
         const jsonData = data;
-        console.log(jsonData)
                 const lodingImage = document.getElementById("lodingImage");
                 lodingImage.remove();
                 const result= jsonData.reduce((prev, current) => {
