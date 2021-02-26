@@ -31,11 +31,14 @@ const getJsonData = async () => {
 
 
 async function init() {
-    let data;
-    data = await getJsonData();
-    toDomCreateErements(data);
+    try {
+        data = await getJsonData();
+        toDomCreateErements(data);
+    } catch (e) {
+        console.error(err);
+    }
+   
 }
-
 
 function displayLodingImage() {
     const image = document.createElement("img");
