@@ -1,8 +1,8 @@
-const getJsonUrl = "https://jsondata.okiba.me/v1/json/ngovH210301060343";
-const toDomUl = document.getElementById("js-parent");
+const url = "https://jsondata.okiba.me/v1/json/ngovH210301060343";
+const parent = document.getElementById("js-parent");
 const imagesFragment = document.createDocumentFragment();
 
-let current = 0;
+
 let imageLists;
 let pagination;
 
@@ -18,7 +18,7 @@ const wait = (sec) => {
 async function getJsonData() {
     try {
         await wait(3);
-        const response = await fetch(getJsonUrl);
+        const response = await fetch(url);
         const jsonData = await response.json();
         return jsonData;
     } catch (err) {
@@ -33,7 +33,6 @@ async function init() {
     let data;
     try {
         data = await getJsonData();
-        console.log(data);
     } catch (e) {
         console.error();
     } finally {
@@ -42,7 +41,7 @@ async function init() {
     if (data.length !== 0) {
         createElements(data);
     } else {
-        toDomUl.innerHTML = "data is empty";
+        parent.innerHTML = "data is empty";
     }
 }
 init();
@@ -50,42 +49,44 @@ init();
 
 function createElements(data) {
     createOfListImageItem(data.images);
-    createOfButton();
-    createOfpagination();
+    createButton();
+    createPagination();
 }
 
 
 function createOfListImageItem(data) {
-    data.reduce((prev, current, index) => {
-        const ListImageItemImg = document.createElement("img");
+    data.forEach((value,index)=>{
+    const ListImageItemImg = document.createElement("img");
         const ListImageItem = document.createElement("li");
         ListImageItem.classList.add("slide-show_list");
-        ListImageItemImg.src = data[index].src;
+        ListImageItemImg.src = value.src;
         imagesFragment.appendChild(ListImageItem)
             .appendChild(ListImageItemImg);
-        console.log(index);
-        if (index === 0) {
-            ListImageItem.classList.add("is-show");
-        }
-        return prev;
-    }, 0);
-    toDomUl.appendChild(imagesFragment);
-    imageLists = document.querySelectorAll('.slide-show_list');
+            if (index === 0) {
+                ListImageItem.classList.add("is-show");
+            }
+    })
+    parent.appendChild(imagesFragment);
 }
 
-function createOfpagination() {
+function imageListsChangeToArray(){
+    imageLists = document.querySelectorAll('.slide-show_list');
+    return imageLists = Array.from( imageLists );
+}
+
+function createPagination() {
     pagination = document.createElement("p");
     pagination.classList.add("pagination");
-    pagination.textContent = `${current + 1}/${imageLists.length}`;
-    toDomUl.after(pagination);
+    pagination.textContent = `${getCurrent() + 1}/${imageLists.length}`;
+    parent.after(pagination);
 }
 
 function paginationUpdate() {
-    pagination.textContent = `${current + 1}/${imageLists.length}`;
+    pagination.textContent = `${getCurrent() + 1}/${imageLists.length}`;
 }
 
 
-function createOfButton() {
+function createButton() {
     const prevButton = document.createElement('button');
     prevButton.textContent = '◀';
     prevButton.classList.add("button", "-prev");
@@ -101,8 +102,8 @@ function createOfButton() {
         showNext();
     }, false);
 
-    toDomUl.after(nextButton);
-    toDomUl.after(prevButton);
+    parent.after(nextButton);
+    parent.after(prevButton);
 }
 
 
@@ -110,12 +111,12 @@ function buttonControl() {
     const prevButton = document.querySelector('.-prev');
     const nextButton = document.querySelector('.-next');
 
-    if (current === 0) {
+    if (getCurrent() === 0) {
         prevButton.disabled = true;
     } else {
         prevButton.disabled = false;
     }
-    if (current === imageLists.length - 1) {
+    if (getCurrent() === imageLists.length - 1) {
         nextButton.disabled = true;
     } else {
         nextButton.disabled = false;
@@ -126,8 +127,6 @@ function showNext() {
     const isShow = document.querySelector('.is-show');
     isShow.classList.remove('is-show');
     isShow.nextElementSibling.classList.add('is-show');
-    current++;
-    paginationUpdate();
     buttonControl();
 }
 
@@ -135,8 +134,11 @@ function showPrev() {
     const isShow = document.querySelector('.is-show');
     isShow.classList.remove('is-show');
     isShow.previousElementSibling.classList.add('is-show');
-    current--;
-    paginationUpdate();
     buttonControl();
 }
 
+function getCurrent() {
+    const isShow = document.querySelector('.is-show'),
+        current = imageListsChangeToArray().indexOf(isShow);
+    return current;
+}
