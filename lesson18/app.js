@@ -77,12 +77,12 @@ function imageListsChangeToArray(){
 function createPagination() {
     pagination = document.createElement("p");
     pagination.classList.add("pagination");
-    pagination.textContent = `${getCurrent() + 1}/${imageLists.length}`;
+    pagination.textContent = `${getCurrent() + 1}/${imageListsChangeToArray().length}`;
     parent.after(pagination);
 }
 
 function paginationUpdate() {
-    pagination.textContent = `${getCurrent() + 1}/${imageLists.length}`;
+    pagination.textContent = `${getCurrent() + 1}/${imageListsChangeToArray().length}`;
 }
 
 
