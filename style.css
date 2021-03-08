@@ -245,3 +245,59 @@ Slide-show
   text-align: center;
   padding:20px;
 }
+
+/* ===============================================
+Table
+=============================================== */
+.table-container{
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.table {
+  width: 100%;
+  margin: 10em 0;
+  border: 1px solid #dee2e6;
+  text-align: center;
+
+}
+.thead{
+  background-color: #ffdbed;
+}
+.table th,.table td{
+  padding: 1em;
+  border: 1px solid #dee2e6;
+}
+
+.sort-button_container{
+  position: absolute;
+  left: 85%;
+  display: flex;
+  flex-direction: column;
+}
+th[data-sort]{
+  display: flex;
+  align-items:center;
+  position: relative;
+}
+
+.sort-button {
+  border: none;
+  background-color: inherit;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  padding:0;
+  font-size: 1em;
+}
+
+.data-sort._title{
+
+  flex-grow: 2; }
+
+
+  ._asc:disabled,._desc:disabled{
+    color:  #eeeeee;
+    pointer-events: none;
+  }
