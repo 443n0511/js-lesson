@@ -5,8 +5,6 @@ const table = document.createElement('table');
 table.id = "table";
 table.classList.add("table");
 
-const tableBodyFragment = document.createDocumentFragment();
-
 
 const wait = (sec) => {
     return new Promise((resolve) => {
@@ -62,6 +60,7 @@ function createTableHeader({ title }) {
     const thead = document.createElement('thead');
     thead.classList.add("thead");
     const theadTr = document.createElement('tr');
+    const tableBodyFragment = document.createDocumentFragment();
 
     title.forEach((value) => {
         const currentValues = Object.values(value);
@@ -90,7 +89,7 @@ function createTableBody(data) {
     const tbody = document.createElement('tbody');
     tbody.id = "tbody";
     tbody.classList.add("body");
-    data.reduce((prev, current) => {
+    data.forEach((current) => {
         const tr = document.createElement('tr');
         const currentValues = Object.values(current);
 
@@ -99,55 +98,39 @@ function createTableBody(data) {
             td.textContent = value;
             tr.appendChild(td)
         })
-
         parent.appendChild(table)
             .appendChild(tbody)
             .appendChild(tr);
-
-        return prev;
-    }, 0)
+    })
 }
-
-
-
-
 
 function sortButtonClick({ data }) {
     document.addEventListener('click', (event) => {
         const tbody = document.getElementById("tbody");
         tbody.remove();
-
+        const target = event.target;
+        const desc = target.id.includes('desc');
         const sortButtons = document.querySelectorAll('.sort-button');
         sortButtons.forEach((value) => {
             value.disabled = false;
         });
 
-        const target = event.target;
-        const desc = target.id.includes('desc');
-
         if (desc == true) {
-            data.sort(function (a, b) {
-                sortButtons[1].disabled = true;
-                return a.id - b.id;
-            });
-
+            sortDesc(data);
+            sortButtons[1].disabled = true;
         } else {
-            data.sort(function (a, b) {
-                sortButtons[0].disabled = true;
-                return b.id - a.id;
-            });
+            sortAsc(data);
+            sortButtons[0].disabled = true;
         }
-        createTableBody(data);
     }, false)
 }
 
 
 function initialSettingSort() {
-    let tabletHeader = document.getElementsByTagName("th");
-    tabletHeader = Array.from(tabletHeader);
-    tabletHeader.forEach((value) => {
-        const sortTabletHeader = value.hasAttribute("data-sort");
-        if (sortTabletHeader == true) {
+    const  tabletHeader = document.getElementsByTagName("th");
+    const tabletHeaderArray = Array.from(tabletHeader);
+    tabletHeaderArray.forEach((value) => {
+        if (value.hasAttribute("data-sort") == true) {
             createSortButtons()
         }
     })
@@ -177,4 +160,17 @@ function createSortButtons() {
     })
 }
 
+function sortDesc(data){
+    const sortResult = [...data].sort(function (a, b) {
+        return a.id - b.id;
+    });
+    createTableBody(sortResult);
+}
+
+function sortAsc(data){
+    const sortResult = [...data].sort(function (a, b) {
+        return b.id - a.id;
+    });
+    createTableBody(sortResult);
+}
 
