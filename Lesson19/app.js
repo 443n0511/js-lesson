@@ -47,7 +47,7 @@ function createElements(data) {
     createTableHeader(data);
     createTableBody(data.data);
     sortButtonClick(data);
-    initialSettingSort();
+
 }
 
 function setSortAdd() {
@@ -58,6 +58,7 @@ function setSortAdd() {
 
 function createTableHeader({ title }) {
     const thead = document.createElement('thead');
+    thead.id = "thead";
     thead.classList.add("thead");
     const theadTr = document.createElement('tr');
     const tableBodyFragment = document.createDocumentFragment();
@@ -104,30 +105,54 @@ function createTableBody(data) {
     })
 }
 
-function sortButtonClick({ data }) {
-    document.addEventListener('click', (event) => {
+async function sortButtonClick({ data }) {
+    await initialSettingSort();
+    const ascButton = document.getElementById("asc");
+    const descButton = document.getElementById("desc");
+    const sortStutas = ['desc', 'asc', 'nomal'];
+
+    descButton.addEventListener('click', () => {
         const tbody = document.getElementById("tbody");
         tbody.remove();
-        const target = event.target;
-        const desc = target.id.includes('desc');
-        const sortButtons = document.querySelectorAll('.sort-button');
-        sortButtons.forEach((value) => {
-            value.disabled = false;
-        });
-
-        if (desc == true) {
+        if (descButton.getAttribute('data-status') == sortStutas[0]) {
+            descButton.disabled = true;
+            ascButton.disabled = false;
+            descButton.dataset.status = 'nomal';
+            ascButton.dataset.status = 'nomal';
+            console.log(1)
             sortDesc(data);
-            sortButtons[1].disabled = true;
-        } else {
-            sortAsc(data);
-            sortButtons[0].disabled = true;
+        } else if (descButton.getAttribute('data-status') == sortStutas[2]) {
+            descButton.disabled = false;
+            ascButton.disabled = false;
+            console.log(2)
+            sortInit(data);
+            ascButton.dataset.status = 'asc';
+            descButton.dataset.status = 'desc';
         }
-    }, false)
+    });
+
+    ascButton.addEventListener('click', () => {
+        const tbody = document.getElementById("tbody");
+        tbody.remove();
+        if (ascButton.getAttribute('data-status') == sortStutas[1]) {
+            ascButton.disabled = true;
+            descButton.disabled = false;
+            ascButton.dataset.status = 'nomal';
+            descButton.dataset.status = 'nomal';
+            sortAsc(data);
+
+        } else if (ascButton.getAttribute('data-status') == sortStutas[2]) {
+            descButton.disabled = false;
+            ascButton.disabled = false;
+            sortInit(data);
+            ascButton.dataset.status = 'asc';
+            descButton.dataset.status = 'desc';
+        }
+    });
 }
 
-
-function initialSettingSort() {
-    const  tabletHeader = document.getElementsByTagName("th");
+async function initialSettingSort() {
+    const tabletHeader = document.getElementsByTagName("th");
     const tabletHeaderArray = Array.from(tabletHeader);
     tabletHeaderArray.forEach((value) => {
         if (value.hasAttribute("data-sort") == true) {
@@ -136,7 +161,8 @@ function initialSettingSort() {
     })
 }
 
-function createSortButtons() {
+
+async function createSortButtons() {
     let sortsDataAttributes = document.querySelectorAll('[data-sort]');
     sortsDataAttributes = Array.from(sortsDataAttributes);
 
@@ -145,14 +171,16 @@ function createSortButtons() {
         sortButtonContainerDiv.classList.add("sort-button_container");
 
         const ascButton = document.createElement('button');
-        ascButton.id = `asc_${value.id}`
+        ascButton.id = "asc";
         ascButton.classList.add("sort-button", "_asc");
         ascButton.textContent = "▲";
+        ascButton.dataset.status = "asc";
 
         const descButton = document.createElement('button');
-        descButton.id = `desc_${value.id}`
+        descButton.id = "desc";
         descButton.classList.add("sort-button", "_desc");
         descButton.textContent = "▼";
+        descButton.dataset.status = "desc";
 
         sortButtonContainerDiv.appendChild(ascButton);
         sortButtonContainerDiv.appendChild(descButton);
@@ -160,17 +188,24 @@ function createSortButtons() {
     })
 }
 
-function sortDesc(data){
+function sortAsc(data) {
     const sortResult = [...data].sort(function (a, b) {
         return a.id - b.id;
     });
     createTableBody(sortResult);
 }
 
-function sortAsc(data){
+function sortDesc(data) {
     const sortResult = [...data].sort(function (a, b) {
         return b.id - a.id;
     });
     createTableBody(sortResult);
 }
+
+function sortInit(data) {
+    const sortResult = [...data];
+    createTableBody(sortResult);
+}
+
+
 
