@@ -109,42 +109,46 @@ async function sortButtonClick({ data }) {
     await initialSettingSort();
     const ascButton = document.getElementById("asc");
     const descButton = document.getElementById("desc");
-    const sortStutas = ['desc', 'asc', 'nomal'];
+    const sortStatus = {
+        DESC: "DESC",
+        ASC: "ASC",
+         NORMAL: "NORMAL"
+       };
 
     descButton.addEventListener('click', () => {
         const tbody = document.getElementById("tbody");
         tbody.remove();
-        if (descButton.getAttribute('data-status') == sortStutas[0]) {
+        if (descButton.getAttribute('data-status') == sortStatus["DESC"]) {
             descButton.disabled = true;
             ascButton.disabled = false;
-            descButton.dataset.status = 'nomal';
-            ascButton.dataset.status = 'nomal';
+            descButton.dataset.status = 'NOMAL';
+            ascButton.dataset.status = 'NOMAL';
             sortDesc(data);
         } else {
             descButton.disabled = false;
             ascButton.disabled = false;
             sortInit(data);
-            ascButton.dataset.status = 'asc';
-            descButton.dataset.status = 'desc';
+            ascButton.dataset.status = 'ASC';
+            descButton.dataset.status = 'DESC';
         }
     });
 
     ascButton.addEventListener('click', () => {
         const tbody = document.getElementById("tbody");
         tbody.remove();
-        if (ascButton.getAttribute('data-status') == sortStutas[1]) {
+        if (ascButton.getAttribute('data-status') == sortStatus["ASC"]) {
             ascButton.disabled = true;
             descButton.disabled = false;
-            ascButton.dataset.status = 'nomal';
-            descButton.dataset.status = 'nomal';
+            ascButton.dataset.status = 'NOMAL';
+            descButton.dataset.status = 'NOMAL';
             sortAsc(data);
 
         } else {
             descButton.disabled = false;
             ascButton.disabled = false;
             sortInit(data);
-            ascButton.dataset.status = 'asc';
-            descButton.dataset.status = 'desc';
+            ascButton.dataset.status = 'ASC';
+            descButton.dataset.status = 'DESC';
         }
     });
 }
@@ -172,13 +176,13 @@ async function createSortButtons() {
         ascButton.id = "asc";
         ascButton.classList.add("sort-button", "_asc");
         ascButton.textContent = "▲";
-        ascButton.dataset.status = "asc";
+        ascButton.dataset.status = "ASC";
 
         const descButton = document.createElement('button');
         descButton.id = "desc";
         descButton.classList.add("sort-button", "_desc");
         descButton.textContent = "▼";
-        descButton.dataset.status = "desc";
+        descButton.dataset.status = "DESC";
 
         sortButtonContainerDiv.appendChild(ascButton);
         sortButtonContainerDiv.appendChild(descButton);
