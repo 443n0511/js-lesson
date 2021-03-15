@@ -121,8 +121,8 @@ async function sortButtonClick({ data }) {
         if (descButton.getAttribute('data-status') == sortStatus["DESC"]) {
             descButton.disabled = true;
             ascButton.disabled = false;
-            descButton.dataset.status = 'NOMAL';
-            ascButton.dataset.status = 'NOMAL';
+            descButton.dataset.status = 'NORMAL';
+            ascButton.dataset.status = 'NORMAL';
             sortDesc(data);
         } else {
             descButton.disabled = false;
@@ -139,8 +139,8 @@ async function sortButtonClick({ data }) {
         if (ascButton.getAttribute('data-status') == sortStatus["ASC"]) {
             ascButton.disabled = true;
             descButton.disabled = false;
-            ascButton.dataset.status = 'NOMAL';
-            descButton.dataset.status = 'NOMAL';
+            ascButton.dataset.status = 'NORMAL';
+            descButton.dataset.status = 'NORMAL';
             sortAsc(data);
 
         } else {
