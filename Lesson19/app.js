@@ -119,12 +119,10 @@ async function sortButtonClick({ data }) {
             ascButton.disabled = false;
             descButton.dataset.status = 'nomal';
             ascButton.dataset.status = 'nomal';
-            console.log(1)
             sortDesc(data);
-        } else if (descButton.getAttribute('data-status') == sortStutas[2]) {
+        } else {
             descButton.disabled = false;
             ascButton.disabled = false;
-            console.log(2)
             sortInit(data);
             ascButton.dataset.status = 'asc';
             descButton.dataset.status = 'desc';
@@ -141,7 +139,7 @@ async function sortButtonClick({ data }) {
             descButton.dataset.status = 'nomal';
             sortAsc(data);
 
-        } else if (ascButton.getAttribute('data-status') == sortStutas[2]) {
+        } else {
             descButton.disabled = false;
             ascButton.disabled = false;
             sortInit(data);
