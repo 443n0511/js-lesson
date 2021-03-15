@@ -118,7 +118,7 @@ async function sortButtonClick({ data }) {
     descButton.addEventListener('click', () => {
         const tbody = document.getElementById("tbody");
         tbody.remove();
-        if (descButton.getAttribute('data-status') == sortStatus["DESC"]) {
+        if (descButton.getAttribute('data-status') === sortStatus["DESC"]) {
             descButton.disabled = true;
             ascButton.disabled = false;
             descButton.dataset.status = 'NORMAL';
@@ -136,7 +136,7 @@ async function sortButtonClick({ data }) {
     ascButton.addEventListener('click', () => {
         const tbody = document.getElementById("tbody");
         tbody.remove();
-        if (ascButton.getAttribute('data-status') == sortStatus["ASC"]) {
+        if (ascButton.getAttribute('data-status') === sortStatus["ASC"]) {
             ascButton.disabled = true;
             descButton.disabled = false;
             ascButton.dataset.status = 'NORMAL';
