@@ -111,17 +111,19 @@ async function sortButtonClick({ data }) {
     await initialSettingSort();
     const ascButtons = [...document.getElementsByClassName('_asc')];
     const descButtons = [...document.getElementsByClassName('_desc')];
+    const sortButtons = [ascButtons, sortButtons];
     const sortStatus = {
         DESC: "DESC",
         ASC: "ASC",
         NORMAL: "NORMAL"
     };
- 
-    descButtons.forEach((descButton,index) => {
+
+    descButtons.forEach((descButton, index) => {
         descButton.addEventListener('click', () => {
             const ascButton = ascButtons[index];
             const tbody = document.getElementById("tbody");
             tbody.remove();
+
             if (descButton.getAttribute('data-status') === sortStatus["DESC"]) {
                 descButton.disabled = true;
                 ascButton.disabled = false;
@@ -141,7 +143,7 @@ async function sortButtonClick({ data }) {
     })
 
 
-    ascButtons.forEach((ascButton,index) => {
+    ascButtons.forEach((ascButton, index) => {
         ascButton.addEventListener('click', () => {
             const descButton = descButtons[index];
             const tbody = document.getElementById("tbody");
@@ -151,7 +153,7 @@ async function sortButtonClick({ data }) {
                 descButton.disabled = false;
                 ascButton.dataset.status = 'NORMAL';
                 descButton.dataset.status = 'NORMAL';
-                
+
                 const buttonType = descButton.dataset.type;
                 sortAsc(data, buttonType);
 
@@ -176,34 +178,41 @@ async function initialSettingSort() {
         if (value.hasAttribute("data-sort")) {
             sortsDataAttributes.push(value);
         }
-        createSortButtons(sortsDataAttributes);
+    })
+    createSortButtons(sortsDataAttributes);
+}
+
+
+function createSortButtons(sortsDataAttributes) {
+    const ascButton = buttonAdd("asc", sortsDataAttributes);
+    const descButton = buttonAdd("desc", sortsDataAttributes);
+
+    sortsDataAttributes.forEach((sortsDataAttribute, index) => {
+        const sortButtonContainerDiv = document.createElement('div');
+        sortButtonContainerDiv.classList.add("sort-button_container");
+        sortButtonContainerDiv.appendChild(ascButton[index]);
+        sortButtonContainerDiv.appendChild(descButton[index]);
+        sortsDataAttribute.appendChild(sortButtonContainerDiv);
     })
 }
 
 
-async function createSortButtons(sortsDataAttributes) {
-        sortsDataAttributes.forEach((value) => {
-        const sortButtonContainerDiv = document.createElement('div');
-        sortButtonContainerDiv.classList.add("sort-button_container");
-
-        const ascButton = document.createElement('button');
-        ascButton.id = `asc_${value.id}`;
-        ascButton.classList.add("sort-button", "_asc");
-        ascButton.textContent = "▲";
-        ascButton.dataset.status = "ASC";
-        ascButton.dataset.type = `${value.id}`;
-
-        const descButton = document.createElement('button');
-        descButton.id = `desc_${value.id}`;
-        descButton.classList.add("sort-button", "_desc");
-        descButton.textContent = "▼";
-        descButton.dataset.status = "DESC";
-        descButton.dataset.type = `${value.id}`;
-
-        sortButtonContainerDiv.appendChild(ascButton);
-        sortButtonContainerDiv.appendChild(descButton);
-        value.appendChild(sortButtonContainerDiv);
+function buttonAdd(buttonType, sortsDataAttributes) {
+    const buttons = [];
+    sortsDataAttributes.forEach((value, index) => {
+        const button = document.createElement('button');
+        button.id = `${buttonType}_${sortsDataAttributes[index].id}`;
+        button.classList.add("sort-button", `_${buttonType}`);
+        if (buttonType === "asc") {
+            button.textContent = "▲";
+        } else {
+            button.textContent = "▼";
+        }
+        button.dataset.status = `${buttonType}`;
+        button.dataset.type = `${sortsDataAttributes[index].id}`;
+        buttons.push(button);
     })
+    return buttons;
 }
 
 function sortAsc(data, buttonType) {
