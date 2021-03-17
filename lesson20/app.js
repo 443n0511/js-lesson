@@ -1,4 +1,4 @@
-const url = "https://jsondata.okiba.me/v1/json/suuQG210308111758";
+const url = "https://jsondata.okiba.me/v1/json/tN7Ay210317141032";
 const parent = document.getElementById("js-parent");
 const table = document.createElement('table');
 
@@ -58,16 +58,16 @@ function setSortAdd() {
 
 }
 
-function createTableHeader({ title }) {
+function createTableHeader({ titles }) {
     const thead = document.createElement('thead');
     thead.id = "thead";
     thead.classList.add("thead");
     const theadTr = document.createElement('tr');
     const tableBodyFragment = document.createDocumentFragment();
 
-    title.forEach((value) => {
-        const currentValues = Object.values(value);
-        const currentkeys = Object.keys(value);
+    titles.forEach((title) => {
+        const currentValues = Object.values(title);
+        const currentkeys = Object.keys(title);
         const theadTh = document.createElement('th');
         const theadP = document.createElement('p');
 
