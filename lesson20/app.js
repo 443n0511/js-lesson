@@ -111,7 +111,6 @@ async function sortButtonClick({ data }) {
     await initialSettingSort();
     const ascButtons = [...document.getElementsByClassName('_asc')];
     const descButtons = [...document.getElementsByClassName('_desc')];
-    const sortButtons = [ascButtons, sortButtons];
     const sortStatus = {
         DESC: "DESC",
         ASC: "ASC",
@@ -174,9 +173,9 @@ async function initialSettingSort() {
     const tabletHeader = document.getElementsByTagName("th");
     const tabletHeaderArray = Array.from(tabletHeader);
     const sortsDataAttributes = [];
-    tabletHeaderArray.forEach((tableHeader) => {
-        if (tableHeader.hasAttribute("data-sort")) {
-            sortsDataAttributes.push(tableHeader);
+    tabletHeaderArray.forEach((value) => {
+        if (value.hasAttribute("data-sort")) {
+            sortsDataAttributes.push(value);
         }
     })
     createSortButtons(sortsDataAttributes);
@@ -184,35 +183,36 @@ async function initialSettingSort() {
 
 
 function createSortButtons(sortsDataAttributes) {
-    const ascButton = buttonAdd("asc", sortsDataAttributes);
-    const descButton = buttonAdd("desc", sortsDataAttributes);
 
-    sortsDataAttributes.forEach((sortsDataAttribute, index) => {
-        const sortButtonContainerDiv = document.createElement('div');
-        sortButtonContainerDiv.classList.add("sort-button_container");
-        sortButtonContainerDiv.appendChild(ascButton[index]);
-        sortButtonContainerDiv.appendChild(descButton[index]);
-        sortsDataAttribute.appendChild(sortButtonContainerDiv);
-    })
+        const ascButton = buttonAdd("asc",sortsDataAttributes);
+        const descButton = buttonAdd("desc",sortsDataAttributes);
+
+        sortsDataAttributes.forEach((sortsDataAttribute,index)=>{
+            const sortButtonContainerDiv = document.createElement('div');
+            sortButtonContainerDiv.classList.add("sort-button_container");    
+            sortButtonContainerDiv.appendChild(ascButton[index]);
+            sortButtonContainerDiv.appendChild(descButton[index]);
+            sortsDataAttribute.appendChild(sortButtonContainerDiv);
+        })
 }
 
 
-function buttonAdd(buttonType, sortsDataAttributes) {
+function buttonAdd(buttonType,sortsDataAttributes) {
     const buttons = [];
-    sortsDataAttributes.forEach((value, index) => {
-        const button = document.createElement('button');
-        button.id = `${buttonType}_${sortsDataAttributes[index].id}`;
-        button.classList.add("sort-button", `_${buttonType}`);
-        if (buttonType === "asc") {
-            button.textContent = "▲";
-        } else {
-            button.textContent = "▼";
-        }
-        button.dataset.status = `${buttonType}`;
-        button.dataset.type = `${sortsDataAttributes[index].id}`;
-        buttons.push(button);
+    sortsDataAttributes.forEach((value,index) => {
+    const button = document.createElement('button');
+    button.id = `${buttonType}_${sortsDataAttributes[index].id}`;
+    button.classList.add("sort-button", `_${buttonType}`);
+    if(buttonType === "asc"){
+        button.textContent = "▲";
+    }else{
+        button.textContent = "▼";
+    }
+    button.dataset.status = `${buttonType}`;
+    button.dataset.type = `${sortsDataAttributes[index].id}`;
+    buttons.push(button);
     })
-    return buttons;
+return  buttons;
 }
 
 function sortAsc(data, buttonType) {
