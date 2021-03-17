@@ -171,19 +171,18 @@ async function sortButtonClick({ data }) {
 async function initialSettingSort() {
     const tabletHeader = document.getElementsByTagName("th");
     const tabletHeaderArray = Array.from(tabletHeader);
+    const sortsDataAttributes = [];
     tabletHeaderArray.forEach((value) => {
         if (value.hasAttribute("data-sort")) {
-            createSortButtons()
+            sortsDataAttributes.push(value);
         }
+        createSortButtons(sortsDataAttributes);
     })
 }
 
 
-async function createSortButtons() {
-    let sortsDataAttributes = document.querySelectorAll('[data-sort]');
-    sortsDataAttributes = Array.from(sortsDataAttributes);
-
-    sortsDataAttributes.forEach((value) => {
+async function createSortButtons(sortsDataAttributes) {
+        sortsDataAttributes.forEach((value) => {
         const sortButtonContainerDiv = document.createElement('div');
         sortButtonContainerDiv.classList.add("sort-button_container");
 
