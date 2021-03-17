@@ -50,7 +50,7 @@ function createElements(data) {
 
 }
 
-function setSortAdd() {
+function setSort() {
     const id = document.getElementById("id");
     const age = document.getElementById("age");
     id.dataset.sort = 'sort';
