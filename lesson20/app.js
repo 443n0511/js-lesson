@@ -174,9 +174,9 @@ async function initialSettingSort() {
     const tabletHeader = document.getElementsByTagName("th");
     const tabletHeaderArray = Array.from(tabletHeader);
     const sortsDataAttributes = [];
-    tabletHeaderArray.forEach((value) => {
-        if (value.hasAttribute("data-sort")) {
-            sortsDataAttributes.push(value);
+    tabletHeaderArray.forEach((tableHeader) => {
+        if (tableHeader.hasAttribute("data-sort")) {
+            sortsDataAttributes.push(tableHeader);
         }
     })
     createSortButtons(sortsDataAttributes);
