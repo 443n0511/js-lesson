@@ -109,18 +109,17 @@ function createTableBody(data) {
 
 async function sortButtonClick({ data }) {
     await initialSettingSort();
-    const ascButtons = document.getElementsByClassName('_asc');
-    const descButtons = document.getElementsByClassName('_desc');
+    const ascButtons = [...document.getElementsByClassName('_asc')];
+    const descButtons = [...document.getElementsByClassName('_desc')];
     const sortStatus = {
         DESC: "DESC",
         ASC: "ASC",
         NORMAL: "NORMAL"
     };
-
-    for (let d = 0; d < descButtons.length; d++) {
-        descButtons[d].addEventListener('click', () => {
-            const ascButton = ascButtons[d];
-            const descButton = descButtons[d];
+ 
+    descButtons.forEach((descButton,index) => {
+        descButton.addEventListener('click', () => {
+            const ascButton = ascButtons[index];
             const tbody = document.getElementById("tbody");
             tbody.remove();
             if (descButton.getAttribute('data-status') === sortStatus["DESC"]) {
@@ -139,12 +138,12 @@ async function sortButtonClick({ data }) {
                 descButton.dataset.status = 'DESC';
             }
         });
-    }
+    })
 
-    for (let a = 0; a < ascButtons.length; a++) {
-        ascButtons[a].addEventListener('click', () => {
-            const ascButton = ascButtons[a];
-            const descButton = descButtons[a];
+
+    ascButtons.forEach((ascButton,index) => {
+        ascButton.addEventListener('click', () => {
+            const descButton = descButtons[index];
             const tbody = document.getElementById("tbody");
             tbody.remove();
             if (ascButton.getAttribute('data-status') === sortStatus["ASC"]) {
@@ -164,7 +163,7 @@ async function sortButtonClick({ data }) {
                 descButton.dataset.status = 'DESC';
             }
         });
-    }
+    })
 
 
 }
