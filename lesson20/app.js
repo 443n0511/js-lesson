@@ -107,6 +107,12 @@ function createTableBody(data) {
     })
 }
 
+function buttonsInit() {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => button.disabled = false);
+};
+
+
 async function sortButtonClick({ data }) {
     await initialSettingSort();
     const ascButtons = [...document.getElementsByClassName('_asc')];
@@ -119,10 +125,10 @@ async function sortButtonClick({ data }) {
 
     descButtons.forEach((descButton, index) => {
         descButton.addEventListener('click', () => {
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => button.disabled = false);
+            buttonsInit();
             const ascButton = ascButtons[index];
             const tbody = document.getElementById("tbody");
+
             tbody.remove();
             if (descButton.getAttribute('data-status') === sortStatus["DESC"]) {
                 descButton.disabled = true;
@@ -143,10 +149,10 @@ async function sortButtonClick({ data }) {
     })
 
 
+
     ascButtons.forEach((ascButton, index) => {
         ascButton.addEventListener('click', () => {
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => button.disabled = false);
+            buttonsInit();
             const descButton = descButtons[index];
             const tbody = document.getElementById("tbody");
             tbody.remove();
@@ -158,7 +164,6 @@ async function sortButtonClick({ data }) {
 
                 const buttonType = descButton.dataset.type;
                 sortAsc(data, buttonType);
-
             } else {
                 descButton.disabled = false;
                 ascButton.disabled = false;
@@ -184,38 +189,36 @@ async function initialSettingSort() {
     createSortButtons(sortsDataAttributes);
 }
 
-
 function createSortButtons(sortsDataAttributes) {
+    const ascButton = buttonAdd("asc", sortsDataAttributes);
+    const descButton = buttonAdd("desc", sortsDataAttributes);
 
-        const ascButton = buttonAdd("asc",sortsDataAttributes);
-        const descButton = buttonAdd("desc",sortsDataAttributes);
-
-        sortsDataAttributes.forEach((sortsDataAttribute,index)=>{
-            const sortButtonContainerDiv = document.createElement('div');
-            sortButtonContainerDiv.classList.add("sort-button_container");    
-            sortButtonContainerDiv.appendChild(ascButton[index]);
-            sortButtonContainerDiv.appendChild(descButton[index]);
-            sortsDataAttribute.appendChild(sortButtonContainerDiv);
-        })
+    sortsDataAttributes.forEach((sortsDataAttribute, index) => {
+        const sortButtonContainerDiv = document.createElement('div');
+        sortButtonContainerDiv.classList.add("sort-button_container");
+        sortButtonContainerDiv.appendChild(ascButton[index]);
+        sortButtonContainerDiv.appendChild(descButton[index]);
+        sortsDataAttribute.appendChild(sortButtonContainerDiv);
+    })
 }
 
 
-function buttonAdd(buttonType,sortsDataAttributes) {
+function buttonAdd(buttonType, sortsDataAttributes) {
     const buttons = [];
-    sortsDataAttributes.forEach((value,index) => {
-    const button = document.createElement('button');
-    button.id = `${buttonType}_${sortsDataAttributes[index].id}`;
-    button.classList.add("sort-button", `_${buttonType}`);
-    if(buttonType === "asc"){
-        button.textContent = "▲";
-    }else{
-        button.textContent = "▼";
-    }
-    button.dataset.status = `${buttonType}`;
-    button.dataset.type = `${sortsDataAttributes[index].id}`;
-    buttons.push(button);
+    sortsDataAttributes.forEach((value, index) => {
+        const button = document.createElement('button');
+        button.id = `${buttonType}_${sortsDataAttributes[index].id}`;
+        button.classList.add("sort-button", `_${buttonType}`);
+        if (buttonType === "asc") {
+            button.textContent = "▲";
+        } else {
+            button.textContent = "▼";
+        }
+        button.dataset.status = `${buttonType}`;
+        button.dataset.type = `${sortsDataAttributes[index].id}`;
+        buttons.push(button);
     })
-return  buttons;
+    return buttons;
 }
 
 function sortAsc(data, buttonType) {
