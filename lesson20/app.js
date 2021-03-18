@@ -115,8 +115,8 @@ function buttonsInit() {
 
 async function sortButtonClick({ data }) {
     await initialSettingSort();
-    const ascButtons = [...document.getElementsByClassName('_asc')];
-    const descButtons = [...document.getElementsByClassName('_desc')];
+    const ascButtons = [...document.getElementsByClassName('_ASC')];
+    const descButtons = [...document.getElementsByClassName('_DESC')];
     const sortStatus = {
         DESC: "DESC",
         ASC: "ASC",
@@ -135,7 +135,6 @@ async function sortButtonClick({ data }) {
                 ascButton.disabled = false;
                 descButton.dataset.status = 'NORMAL';
                 ascButton.dataset.status = 'NORMAL';
-
                 const buttonType = descButton.dataset.type;
                 sortDesc(data, buttonType);
             } else {
@@ -149,7 +148,6 @@ async function sortButtonClick({ data }) {
     })
 
 
-
     ascButtons.forEach((ascButton, index) => {
         ascButton.addEventListener('click', () => {
             buttonsInit();
@@ -161,7 +159,6 @@ async function sortButtonClick({ data }) {
                 descButton.disabled = false;
                 ascButton.dataset.status = 'NORMAL';
                 descButton.dataset.status = 'NORMAL';
-
                 const buttonType = descButton.dataset.type;
                 sortAsc(data, buttonType);
             } else {
@@ -190,8 +187,8 @@ async function initialSettingSort() {
 }
 
 function createSortButtons(sortsDataAttributes) {
-    const ascButton = buttonAdd("asc", sortsDataAttributes);
-    const descButton = buttonAdd("desc", sortsDataAttributes);
+    const ascButton = buttonAdd("ASC", sortsDataAttributes);
+    const descButton = buttonAdd("DESC", sortsDataAttributes);
 
     sortsDataAttributes.forEach((sortsDataAttribute, index) => {
         const sortButtonContainerDiv = document.createElement('div');
@@ -200,6 +197,7 @@ function createSortButtons(sortsDataAttributes) {
         sortButtonContainerDiv.appendChild(descButton[index]);
         sortsDataAttribute.appendChild(sortButtonContainerDiv);
     })
+
 }
 
 
@@ -209,7 +207,7 @@ function buttonAdd(buttonType, sortsDataAttributes) {
         const button = document.createElement('button');
         button.id = `${buttonType}_${sortsDataAttributes[index].id}`;
         button.classList.add("sort-button", `_${buttonType}`);
-        if (buttonType === "asc") {
+        if (buttonType === "ASC") {
             button.textContent = "▲";
         } else {
             button.textContent = "▼";

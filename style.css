@@ -297,7 +297,7 @@ th[data-sort]{
   flex-grow: 2; }
 
 
-  ._asc:disabled,._desc:disabled{
+  ._ASC:disabled,._DESC:disabled{
     color:  #eeeeee;
     pointer-events: none;
   }
