@@ -84,7 +84,7 @@ function createTableHeader({ titles }) {
         .appendChild(theadTr)
         .appendChild(tableBodyFragment);
 
-    setSortAdd();
+    setSort();
 
 }
 
@@ -119,10 +119,11 @@ async function sortButtonClick({ data }) {
 
     descButtons.forEach((descButton, index) => {
         descButton.addEventListener('click', () => {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => button.disabled = false);
             const ascButton = ascButtons[index];
             const tbody = document.getElementById("tbody");
             tbody.remove();
-
             if (descButton.getAttribute('data-status') === sortStatus["DESC"]) {
                 descButton.disabled = true;
                 ascButton.disabled = false;
@@ -144,6 +145,8 @@ async function sortButtonClick({ data }) {
 
     ascButtons.forEach((ascButton, index) => {
         ascButton.addEventListener('click', () => {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => button.disabled = false);
             const descButton = descButtons[index];
             const tbody = document.getElementById("tbody");
             tbody.remove();
