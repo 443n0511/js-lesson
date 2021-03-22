@@ -179,7 +179,7 @@ Slide-show
 }
 
 .slide-show_container {
-  height: 350px;
+  height: 250px;
 }
 
 .slide-show_list{
@@ -192,9 +192,27 @@ Slide-show
   display:none;
 }
 
-.is-show {
+.slide-show_list.is-show {
   display: block;
 }
+
+.dot-pagination{
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  margin: 0 2px;
+  content: "";
+  background: #ffdf85;
+  border: none;
+  border-radius: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+}
+.dot-pagination.is-active{
+  background: red;
+}
+
 
 .slide-show_list img {
   width: 100%;
