@@ -139,7 +139,7 @@ function autoPagenation() {
             getButtons()[(count - 1)].classList.add('is-active');
             paginationUpdate();
         }
-    }, 1000);
+    }, 3000);
 }
 
 
