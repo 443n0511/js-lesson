@@ -130,6 +130,7 @@ function autoPagenation() {
             getImageLists()[(count)].classList.add('is-show');
             getButtons()[(count)].classList.add('is-active');
             paginationUpdate();
+            buttonControl();
             countUp();
         } else {
             removeIsActive();
@@ -138,6 +139,7 @@ function autoPagenation() {
             getImageLists()[(count - 1)].classList.add('is-show');
             getButtons()[(count - 1)].classList.add('is-active');
             paginationUpdate();
+            buttonControl();
         }
     }, 3000);
 }
