@@ -172,14 +172,14 @@ Slide-show
 =============================================== */
 
 .slide-show {
-  max-width:500px;
   position: relative;
   width: 60%;
+  max-width: 350px;
   margin: 20px auto;
 }
 
 .slide-show_container {
-  height: 250px;
+  height:230px;
 }
 
 .slide-show_list{
