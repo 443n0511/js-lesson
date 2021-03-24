@@ -9,7 +9,7 @@ function getImageLists() {
     return imageLists;
 }
 function getButtons() {
-    const buttons = [...document.querySelectorAll('.dot-pagination')];
+    const buttons = [...document.querySelectorAll('.button-pagination')];
     return buttons;
 }
 
@@ -56,7 +56,7 @@ function createElements(data) {
     createOfListImageItem(data.images);
     createButton();
     createPagination();
-    createDotPagination();
+    createButtonPagination();
     autoPagenation();
 }
 
@@ -94,7 +94,7 @@ function createButtonPagination() {
         const button = document.createElement("button");
         button.id = i;
         button.classList.add('button-pagination');
-        buttonContainer.appendChild(button);
+        buttonPaginationContainer.appendChild(button);
         if (i === 0) {
             button.classList.add('is-active');
         }
@@ -112,7 +112,7 @@ function createButtonPagination() {
 }
 
 function updatePagination() {
-    paginationNumber.textContent = `${getCurrent() + 1}/${getImageLists().length}`;
+    paragraphElement.textContent = `${getCurrent() + 1}/${getImageLists().length}`;
 }
 
 
@@ -129,7 +129,7 @@ function autoPagenation() {
             count = 0;
             getImageLists()[(count)].classList.add('is-show');
             getButtons()[(count)].classList.add('is-active');
-            updatePagination();
+            paginationUpdate();
             buttonDisabled();
             countUp();
         } else {
