@@ -104,7 +104,7 @@ function createButtonPagination() {
             removeIsActive();
             getImageLists()[i].classList.add('is-show');
             getButtons()[i].classList.add('is-active');
-            buttonControl();
+            buttonDisabled();
             paginationUpdate();
         })
     }
@@ -130,7 +130,7 @@ function autoPagenation() {
             getImageLists()[(count)].classList.add('is-show');
             getButtons()[(count)].classList.add('is-active');
             paginationUpdate();
-            buttonControl();
+            buttonDisabled();
             countUp();
         } else {
             removeIsActive();
@@ -139,7 +139,7 @@ function autoPagenation() {
             getImageLists()[(count - 1)].classList.add('is-show');
             getButtons()[(count - 1)].classList.add('is-active');
             paginationUpdate();
-            buttonControl();
+            buttonDisabled();
         }
     }, 3000);
 }
@@ -169,7 +169,7 @@ function createButton() {
 }
 
 
-function buttonControl() {
+function buttonDisabled() {
     const prevButton = document.querySelector('.-prev'),
         nextButton = document.querySelector('.-next');
 
@@ -189,13 +189,13 @@ function buttonControl() {
 function showNext() {
     removeIsShow().nextElementSibling.classList.add('is-show');
     removeIsActive().nextElementSibling.classList.add('is-active');
-    buttonControl();
+    buttonDisabled();
 }
 
 function showPrev() {
     removeIsShow().previousElementSibling.classList.add('is-show');
     removeIsActive().previousElementSibling.classList.add('is-active');
-    buttonControl();
+    buttonDisabled();
 }
 
 function getCurrent() {
