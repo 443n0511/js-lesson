@@ -85,7 +85,7 @@ function createPagination() {
     paragraphElement.classList.add("pagination");
     paragraphElement.id = "paragraphElement";
     parent.after(paragraphElement);
-    paginationUpdate();
+    updatePagination();
 }
 
 function createButtonPagination() {
@@ -105,13 +105,13 @@ function createButtonPagination() {
             getImageLists()[i].classList.add('is-show');
             getButtons()[i].classList.add('is-active');
             buttonDisabled();
-            paginationUpdate();
+            updatePagination();
         })
     }
     parent.after(buttonPaginationContainer);
 }
 
-function paginationUpdate() {
+function updatePagination() {
     paginationNumber.textContent = `${getCurrent() + 1}/${getImageLists().length}`;
 }
 
@@ -129,7 +129,7 @@ function autoPagenation() {
             count = 0;
             getImageLists()[(count)].classList.add('is-show');
             getButtons()[(count)].classList.add('is-active');
-            paginationUpdate();
+            updatePagination();
             buttonDisabled();
             countUp();
         } else {
@@ -138,7 +138,7 @@ function autoPagenation() {
             countUp();
             getImageLists()[(count - 1)].classList.add('is-show');
             getButtons()[(count - 1)].classList.add('is-active');
-            paginationUpdate();
+            updatePagination();
             buttonDisabled();
         }
     }, 3000);
@@ -152,7 +152,7 @@ function createButton() {
     prevButton.addEventListener('click', () => {
         clearInterval(interval);
         showPrev();
-        paginationUpdate();
+        updatePagination();
     }, false);
 
     const nextButton = document.createElement('button');
@@ -161,7 +161,7 @@ function createButton() {
     nextButton.addEventListener('click', () => {
         clearInterval(interval);
         showNext();
-        paginationUpdate();
+        updatePagination();
     }, false);
 
     parent.after(nextButton);
