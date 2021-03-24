@@ -3,13 +3,15 @@ const url = "https://jsondata.okiba.me/v1/json/ngovH210301060343",
     imagesFragment = document.createDocumentFragment();
 
 let interval;
+let imageLists;
+let bottons;
 
 function getImageLists() {
-    const imageLists = [...document.querySelectorAll('.slide-show_list')];
+    imageLists = [...document.querySelectorAll('.slide-show_list')];
     return imageLists;
 }
 function getButtons() {
-    const buttons = [...document.querySelectorAll('.button-pagination')];
+    buttons = [...document.querySelectorAll('.button-pagination')];
     return buttons;
 }
 
@@ -54,10 +56,13 @@ init();
 
 function createElements(data) {
     createOfListImageItem(data.images);
-    createButton();
+    createArrowButton();
     createPagination();
     createButtonPagination();
+    getImageLists();
+    getButtons();
     autoPagenation();
+    
 }
 
 
@@ -90,7 +95,7 @@ function createPagination() {
 
 function createButtonPagination() {
     const buttonPaginationContainer = document.createElement("div");
-    for (let i = 0; i < getImageLists().length; i++) {
+    for (let i = 0; i < imageLists.length; i++) {
         const button = document.createElement("button");
         button.id = i;
         button.classList.add('button-pagination');
@@ -102,8 +107,8 @@ function createButtonPagination() {
             clearInterval(interval);
             removeIsShow();
             removeIsActive();
-            getImageLists()[i].classList.add('is-show');
-            getButtons()[i].classList.add('is-active');
+            imageLists[i].classList.add('is-show');
+            buttons[i].classList.add('is-active');
             buttonDisabled();
             updatePagination();
         })
@@ -112,10 +117,8 @@ function createButtonPagination() {
 }
 
 function updatePagination() {
-    paragraphElement.textContent = `${getCurrent() + 1}/${getImageLists().length}`;
+    paragraphElement.textContent = `${getCurrent() + 1}/${imageLists.length}`;
 }
-
-
 
 function autoPagenation() {
     let count = 0;
@@ -125,22 +128,22 @@ function autoPagenation() {
     interval = setInterval(() => {
         removeIsActive();
         removeIsShow();
-        if (count > (getImageLists().length - 1)) {
+        if (count > (imageLists.length - 1)) {
             count = 0;
-            getImageLists()[(count)].classList.add('is-show');
-            getButtons()[(count)].classList.add('is-active');
+            imageLists[(count)].classList.add('is-show');
+            buttons[(count)].classList.add('is-active');
             countUp();
         } else {
             countUp();
-            getImageLists()[(count - 1)].classList.add('is-show');
-            getButtons()[(count - 1)].classList.add('is-active');
+            imageLists[(count - 1)].classList.add('is-show');
+            buttons[(count - 1)].classList.add('is-active');
         }
         updatePagination();
         buttonDisabled();
     }, 3000);
 }
 
-function createButton() {
+function createArrowButton() {
     const prevButton = document.createElement('button');
     prevButton.textContent = '◀';
     prevButton.classList.add("button", "-prev");
@@ -196,7 +199,7 @@ function showPrev() {
 
 function getCurrent() {
     const listIsShow = document.querySelector('.is-show'),
-        current = getImageLists().indexOf(listIsShow);
+        current = imageLists.indexOf(listIsShow);
     return current;
 }
 
