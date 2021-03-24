@@ -81,10 +81,10 @@ function createOfListImageItem(items) {
 
 
 function createPagination() {
-    const paginationNumber = document.createElement("p");
-    paginationNumber.classList.add("pagination");
-    paginationNumber.id = "paginationNumber";
-    parent.after(paginationNumber);
+    const paragraphElement = document.createElement("p");
+    paragraphElement.classList.add("pagination");
+    paragraphElement.id = "paragraphElement";
+    parent.after(paragraphElement);
     paginationUpdate();
 }
 
@@ -143,12 +143,6 @@ function autoPagenation() {
         }
     }, 3000);
 }
-
-
-
-
-
-
 
 function createButton() {
     const prevButton = document.createElement('button');
