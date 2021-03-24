@@ -123,24 +123,20 @@ function autoPagenation() {
         return count++;
     }
     interval = setInterval(() => {
+        removeIsActive();
+        removeIsShow();
         if (count > (getImageLists().length - 1)) {
-            removeIsActive();
-            removeIsShow();
             count = 0;
             getImageLists()[(count)].classList.add('is-show');
             getButtons()[(count)].classList.add('is-active');
-            paginationUpdate();
-            buttonDisabled();
             countUp();
         } else {
-            removeIsActive();
-            removeIsShow();
             countUp();
             getImageLists()[(count - 1)].classList.add('is-show');
             getButtons()[(count - 1)].classList.add('is-active');
-            updatePagination();
-            buttonDisabled();
         }
+        updatePagination();
+        buttonDisabled();
     }, 3000);
 }
 
