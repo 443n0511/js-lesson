@@ -88,17 +88,17 @@ function createPagination() {
     paginationUpdate();
 }
 
-function createDotPagination() {
-    const dotPaginationContainer = document.createElement("div");
+function createButtonPagination() {
+    const buttonPaginationContainer = document.createElement("div");
     for (let i = 0; i < getImageLists().length; i++) {
-        const dotPagination = document.createElement("button");
-        dotPagination.id = i;
-        dotPagination.classList.add('dot-pagination');
-        dotPaginationContainer.appendChild(dotPagination);
+        const button = document.createElement("button");
+        button.id = i;
+        button.classList.add('button-pagination');
+        buttonContainer.appendChild(button);
         if (i === 0) {
-            dotPagination.classList.add('is-active');
+            button.classList.add('is-active');
         }
-        dotPagination.addEventListener('click', () => {
+        button.addEventListener('click', () => {
             clearInterval(interval);
             removeIsShow();
             removeIsActive();
@@ -108,7 +108,7 @@ function createDotPagination() {
             paginationUpdate();
         })
     }
-    parent.after(dotPaginationContainer);
+    parent.after(buttonPaginationContainer);
 }
 
 function paginationUpdate() {

@@ -209,7 +209,7 @@ Slide-show
   cursor: pointer;
   outline: none;
 }
-.dot-pagination.is-active{
+.button-pagination.is-active{
   background: red;
 }
 
