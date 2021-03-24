@@ -6,12 +6,12 @@ let interval;
 let imageLists;
 let bottons;
 
-function getImageLists() {
-    imageLists = [...document.querySelectorAll('.slide-show_list')];
+function getImageLists(target) {
+    imageLists = [...document.querySelectorAll(target)];
     return imageLists;
 }
-function getButtons() {
-    buttons = [...document.querySelectorAll('.button-pagination')];
+function getButtons(target) {
+    buttons = [...document.querySelectorAll(target)];
     return buttons;
 }
 
@@ -59,10 +59,8 @@ function createElements(data) {
     createArrowButton();
     createPagination();
     createButtonPagination();
-    getImageLists();
-    getButtons();
+    getButtons('.button-pagination');
     autoPagenation();
-    
 }
 
 
@@ -80,6 +78,7 @@ function createOfListImageItem(items) {
         }
     })
     parent.appendChild(imagesFragment);
+    getImageLists('.slide-show_list');
 }
 
 
@@ -177,7 +176,7 @@ function buttonDisabled() {
     } else {
         prevButton.disabled = false;
     }
-    if (getCurrent() === getImageLists().length - 1) {
+    if (getCurrent() === imageLists.length - 1) {
         nextButton.disabled = true;
     } else {
         nextButton.disabled = false;
@@ -198,6 +197,7 @@ function showPrev() {
 }
 
 function getCurrent() {
+    getImageLists('.slide-show_list');
     const listIsShow = document.querySelector('.is-show'),
         current = imageLists.indexOf(listIsShow);
     return current;
