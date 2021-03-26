@@ -1,4 +1,4 @@
-const url = "https://jsondata.okiba.me/v1/json/tN7Ay210317141032";
+const url = "https://jsondata.okiba.me/v1/json/suuQG210308111758";
 const parent = document.getElementById("js-parent");
 const table = document.createElement('table');
 
@@ -50,24 +50,22 @@ function createElements(data) {
 
 }
 
-function setSort() {
+function setSortAdd() {
     const id = document.getElementById("id");
-    const age = document.getElementById("age");
     id.dataset.sort = 'sort';
-    age.dataset.sort = 'sort';
 
 }
 
-function createTableHeader({ titles }) {
+function createTableHeader({ title }) {
     const thead = document.createElement('thead');
     thead.id = "thead";
     thead.classList.add("thead");
     const theadTr = document.createElement('tr');
     const tableBodyFragment = document.createDocumentFragment();
 
-    titles.forEach((title) => {
-        const currentValues = Object.values(title);
-        const currentkeys = Object.keys(title);
+    title.forEach((value) => {
+        const currentValues = Object.values(value);
+        const currentkeys = Object.keys(value);
         const theadTh = document.createElement('th');
         const theadP = document.createElement('p');
 
@@ -84,7 +82,7 @@ function createTableHeader({ titles }) {
         .appendChild(theadTr)
         .appendChild(tableBodyFragment);
 
-    setSort();
+    setSortAdd();
 
 }
 
@@ -107,129 +105,101 @@ function createTableBody(data) {
     })
 }
 
-function buttonsInit() {
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => button.disabled = false);
-};
-
-
 async function sortButtonClick({ data }) {
     await initialSettingSort();
-    const ascButtons = [...document.getElementsByClassName('_ASC')];
-    const descButtons = [...document.getElementsByClassName('_DESC')];
+    const ascButton = document.getElementById("asc");
+    const descButton = document.getElementById("desc");
     const sortStatus = {
         DESC: "DESC",
         ASC: "ASC",
-        NORMAL: "NORMAL"
-    };
+         NORMAL: "NORMAL"
+       };
 
-    descButtons.forEach((descButton, index) => {
-        descButton.addEventListener('click', () => {
-            buttonsInit();
-            const ascButton = ascButtons[index];
-            const tbody = document.getElementById("tbody");
+    descButton.addEventListener('click', () => {
+        const tbody = document.getElementById("tbody");
+        tbody.remove();
+        if (descButton.getAttribute('data-status') === sortStatus["DESC"]) {
+            descButton.disabled = true;
+            ascButton.disabled = false;
+            descButton.dataset.status = 'NORMAL';
+            ascButton.dataset.status = 'NORMAL';
+            sortDesc(data);
+        } else {
+            descButton.disabled = false;
+            ascButton.disabled = false;
+            sortInit(data);
+            ascButton.dataset.status = 'ASC';
+            descButton.dataset.status = 'DESC';
+        }
+    });
 
-            tbody.remove();
-            if (descButton.getAttribute('data-status') === sortStatus["DESC"]) {
-                descButton.disabled = true;
-                ascButton.disabled = false;
-                descButton.dataset.status = 'NORMAL';
-                ascButton.dataset.status = 'NORMAL';
-                const buttonType = descButton.dataset.type;
-                sortDesc(data, buttonType);
-            } else {
-                descButton.disabled = false;
-                ascButton.disabled = false;
-                sortInit(data);
-                ascButton.dataset.status = 'ASC';
-                descButton.dataset.status = 'DESC';
-            }
-        });
-    })
+    ascButton.addEventListener('click', () => {
+        const tbody = document.getElementById("tbody");
+        tbody.remove();
+        if (ascButton.getAttribute('data-status') === sortStatus["ASC"]) {
+            ascButton.disabled = true;
+            descButton.disabled = false;
+            ascButton.dataset.status = 'NORMAL';
+            descButton.dataset.status = 'NORMAL';
+            sortAsc(data);
 
-
-    ascButtons.forEach((ascButton, index) => {
-        ascButton.addEventListener('click', () => {
-            buttonsInit();
-            const descButton = descButtons[index];
-            const tbody = document.getElementById("tbody");
-            tbody.remove();
-            if (ascButton.getAttribute('data-status') === sortStatus["ASC"]) {
-                ascButton.disabled = true;
-                descButton.disabled = false;
-                ascButton.dataset.status = 'NORMAL';
-                descButton.dataset.status = 'NORMAL';
-                const buttonType = descButton.dataset.type;
-                sortAsc(data, buttonType);
-            } else {
-                descButton.disabled = false;
-                ascButton.disabled = false;
-                sortInit(data);
-                ascButton.dataset.status = 'ASC';
-                descButton.dataset.status = 'DESC';
-            }
-        });
-    })
-
-
+        } else {
+            descButton.disabled = false;
+            ascButton.disabled = false;
+            sortInit(data);
+            ascButton.dataset.status = 'ASC';
+            descButton.dataset.status = 'DESC';
+        }
+    });
 }
 
 async function initialSettingSort() {
     const tabletHeader = document.getElementsByTagName("th");
     const tabletHeaderArray = Array.from(tabletHeader);
-    const sortsDataAttributes = [];
-    tabletHeaderArray.forEach((tabletHeader) => {
-        if (tabletHeader.hasAttribute("data-sort")) {
-            sortsDataAttributes.push(tabletHeader);
+    tabletHeaderArray.forEach((value) => {
+        if (value.hasAttribute("data-sort") == true) {
+            createSortButtons()
         }
     })
-    createSortButtons(sortsDataAttributes);
 }
 
-function createSortButtons(sortsDataAttributes) {
-    const ascButton = buttonAdd("ASC", sortsDataAttributes);
-    const descButton = buttonAdd("DESC", sortsDataAttributes);
 
-    sortsDataAttributes.forEach((sortsDataAttribute, index) => {
+async function createSortButtons() {
+    let sortsDataAttributes = document.querySelectorAll('[data-sort]');
+    sortsDataAttributes = Array.from(sortsDataAttributes);
+
+    sortsDataAttributes.forEach((value) => {
         const sortButtonContainerDiv = document.createElement('div');
         sortButtonContainerDiv.classList.add("sort-button_container");
-        sortButtonContainerDiv.appendChild(ascButton[index]);
-        sortButtonContainerDiv.appendChild(descButton[index]);
-        sortsDataAttribute.appendChild(sortButtonContainerDiv);
-    })
 
+        const ascButton = document.createElement('button');
+        ascButton.id = "asc";
+        ascButton.classList.add("sort-button", "_asc");
+        ascButton.textContent = "▲";
+        ascButton.dataset.status = "ASC";
+
+        const descButton = document.createElement('button');
+        descButton.id = "desc";
+        descButton.classList.add("sort-button", "_desc");
+        descButton.textContent = "▼";
+        descButton.dataset.status = "DESC";
+
+        sortButtonContainerDiv.appendChild(ascButton);
+        sortButtonContainerDiv.appendChild(descButton);
+        value.appendChild(sortButtonContainerDiv);
+    })
 }
 
-
-function buttonAdd(buttonType, sortsDataAttributes) {
-    const buttons = [];
-    sortsDataAttributes.forEach((value, index) => {
-        const button = document.createElement('button');
-        button.id = `${buttonType}_${sortsDataAttributes[index].id}`;
-        button.classList.add("sort-button", `_${buttonType}`);
-        if (buttonType === "ASC") {
-            button.textContent = "▲";
-        } else {
-            button.textContent = "▼";
-        }
-        button.dataset.status = `${buttonType}`;
-        button.dataset.type = `${sortsDataAttributes[index].id}`;
-        buttons.push(button);
-    })
-    return buttons;
-}
-
-function sortAsc(data, buttonType) {
+function sortAsc(data) {
     const sortResult = [...data].sort(function (a, b) {
-
-        return a[buttonType] - b[buttonType];
+        return a.id - b.id;
     });
     createTableBody(sortResult);
 }
 
-function sortDesc(data, buttonType) {
+function sortDesc(data) {
     const sortResult = [...data].sort(function (a, b) {
-        return b[buttonType] - a[buttonType];
+        return b.id - a.id;
     });
     createTableBody(sortResult);
 }
