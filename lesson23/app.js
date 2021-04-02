@@ -281,6 +281,7 @@ function createArrowButton(datas) {
         if (step > 5) {
             tbody.remove();
             prevButton.disabled = false;
+            nextButton.disabled = false;
             const result = datas.prevPagination();
             createTableBody(result);
         } else {
