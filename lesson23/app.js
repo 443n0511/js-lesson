@@ -278,7 +278,7 @@ function createArrowButton(datas) {
     prevButton.addEventListener('click', () => {
         step = step - pageSetup;
         currentPagenationInit(datas);
-        if (step > 5) {
+        if (step > pageSetup) {
             tbody.remove();
             prevButton.disabled = false;
             nextButton.disabled = false;
