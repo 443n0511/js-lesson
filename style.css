@@ -270,12 +270,12 @@ Table
 .table-container{
   max-width: 980px;
   width: 100%;
-  margin: 0 auto;
+  margin: 2em auto;
 }
 
 .table {
   width: 100%;
-  margin: 10em 0;
+  margin: 1em 0;
   border: 1px solid #dee2e6;
   text-align: center;
 
@@ -285,6 +285,7 @@ Table
 }
 .table th,.table td{
   padding: 1em;
+  width: 220px;
   border: 1px solid #dee2e6;
 }
 
@@ -298,6 +299,7 @@ th[data-sort]{
   display: flex;
   align-items:center;
   position: relative;
+  justify-content: center;
 }
 
 .sort-button {
@@ -308,6 +310,23 @@ th[data-sort]{
   outline: none;
   padding:0;
   font-size: 1em;
+}
+.pagination-botton{
+  border: none;
+  background-color: inherit;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  padding:0;
+  font-size: 1em;
+}
+.pagination-botton._prev:disabled,.pagination-botton._next:disabled{
+  color:  #eeeeee;
+}
+
+.pagenation-container{
+  display: flex;
+  justify-content: space-between;
 }
 
 .data-sort._title{
