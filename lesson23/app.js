@@ -51,14 +51,10 @@ async function init() {
 init();
 
 
-async function initializeInstantiatedDatas() {
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    const instantiationDatas = new Pagenation(jsonData);
-    initData = instantiationDatas.getDatas();
-
+async function initializeInstantiatedDatas(instantiationDatas) {
+    return initData = instantiationDatas.initDatas();
 }
-initializeInstantiatedDatas();
+
 
 
 function createElements(data) {
@@ -69,6 +65,7 @@ function createElements(data) {
     sortButtonClick(instantiationDatas);
     createArrowButton(instantiationDatas);
     currentPagenation(instantiationDatas);
+    initializeInstantiatedDatas(instantiationDatas);
 }
 
 
@@ -338,6 +335,7 @@ function currentPagenationInit(data) {
 class Pagenation {
     constructor(data) {
         this.data = data;
+        this.initData = data;
     }
 
     getTitles() {
@@ -346,6 +344,9 @@ class Pagenation {
 
     getDatas() {
         return this.data.data;
+    }
+    initDatas() {
+        return this.initData.data;
     }
 
     nextPagination() {
