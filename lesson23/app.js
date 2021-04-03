@@ -116,9 +116,9 @@ async function createTableBody(datas) {
     tbody.id = "tbody";
     tbody.classList.add("body");
     let i = 0;
-    datas.some((current) => {
+    datas.forEach((current) => {
         if (i >= step) {
-            return true;
+            return;
         } else {
             i++;
             const tr = document.createElement('tr');
