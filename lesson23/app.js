@@ -360,15 +360,14 @@ class Pagenation {
     }
 
     sortAsc(buttonType) {
-        const sortResult = this.getDatas().sort(function (a, b) {
-
+        const sortResult = [...this.getDatas()].sort(function (a, b) {
             return a[buttonType] - b[buttonType];
         });
         return sortResult;
     }
 
     sortDesc(buttonType) {
-        const sortResult = this.getDatas().sort(function (a, b) {
+        const sortResult = [...this.getDatas()].sort(function (a, b) {
             return b[buttonType] - a[buttonType];
         });
         return sortResult;
