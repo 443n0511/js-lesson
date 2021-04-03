@@ -151,8 +151,8 @@ async function sortButtonClick(instantiationDatas) {
         descButton.addEventListener('click', () => {
             const ascButton = ascButtons[index];
             const tbody = document.getElementById("tbody");
-
             step = pageSetup;
+            currentPagenationInit(instantiationDatas);
             buttonDisabled(instantiationDatas);
             buttonsInit();
             tbody.remove();
@@ -179,8 +179,8 @@ async function sortButtonClick(instantiationDatas) {
         ascButton.addEventListener('click', () => {
             const descButton = descButtons[index];
             const tbody = document.getElementById("tbody");
-
             step = pageSetup;
+            currentPagenationInit(instantiationDatas);
             buttonDisabled(instantiationDatas);
             buttonsInit();
             tbody.remove();
