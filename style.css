@@ -20,7 +20,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 	display:block;
 }
 body{
-	line-height:1;
+	line-height:1.6;
 }
 ol, ul{
 	list-style:none;
@@ -58,13 +58,37 @@ Modal
     width: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.5);
+    transition: .5s;
     }
     
     .modal-content{
+      margin: 60px auto;
     background-color: white;
-    width: 500px;
-    margin: 20% auto;
+    padding:32px;
+    width: 60%;
+    max-width: 1000px;
+    height: 50%;
+    overflow-y: scroll;
     }
+
+    .modal-content ul{
+      list-style-type: disc;
+      padding-left: 30px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px
+    }
+
+    .modal-content h1, .modal-content h2 {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding:.75em 0;
+    }
+    .modal-buttons{
+      margin: .5em auto;
+      width: 200px;
+    }
+
     .modal-body{
         padding: 1em;
     }
@@ -74,6 +98,46 @@ Modal
         font-weight: 500;
         margin: 1em auto;
     }
+
+/* ===============================================
+Form
+=============================================== */
+
+.registration-form_title{
+  font-size: 1.5em;
+}
+.registration-form_container{
+  margin: 3em auto;
+  padding: 2em;
+  width: 50%;
+  min-width: 500px;
+  background-color: #dee2e6;
+}
+.registration-form_container form{
+  margin: 2em auto; 
+  font-size: .875em;
+}
+.registration-form_container li{
+  margin: 1em 0;
+}
+.registration-form_container label{
+  display: inline-block;
+  width: 35%;
+  font-size: 1.2em;
+
+}
+.registration-form_container input[type="email"],
+.registration-form_container input[type="text"],
+.registration-form_container input[type="password"]{
+  width: 55%;
+  font-size: 1.2em;
+}
+
+.registration-form_container p{
+display: inline-block;
+margin: 0 auto;
+font-size: 1.2em;
+}
 
 
 /* ===============================================
