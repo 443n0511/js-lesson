@@ -22,9 +22,7 @@ closeButton.addEventListener('click', () => {
     closeModal();
 });
 
-agreeButton.addEventListener('click', () => {
-    closeModal();
-});
+
 
 modalContent.onscroll = function () {
     const height = modalContent.offsetHeight;
@@ -35,8 +33,11 @@ modalContent.onscroll = function () {
 
     if ((scrollHeight - scrollPosition) / scrollHeight <= proximity) {
         agreeButton.disabled = false;
-        checkBox.disabled = false;
-        checkBox.checked = true;
+        agreeButton.addEventListener('click', () => {
+            checkBox.disabled = false;
+            checkBox.checked = true;
+            closeModal();
+        });
     }
 };
 
