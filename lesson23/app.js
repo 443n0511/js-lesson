@@ -335,7 +335,7 @@ function currentPagenationInit(data) {
 class Pagenation {
     constructor(data) {
         this.data = data;
-        this.initData = data;
+        this.initializeData = data;
     }
 
     getTitles() {
@@ -345,8 +345,8 @@ class Pagenation {
     getDatas() {
         return this.data.data;
     }
-    initDatas() {
-        return this.initData.data;
+    getInitializeData() {
+        return this.initializeData.data;
     }
 
     nextPagination() {
