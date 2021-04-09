@@ -21,10 +21,10 @@ closeButton.addEventListener('click', closeModal);
 
 
 modalContent.onscroll = function () {
-    const height = modalContent.offsetHeight;
+    const offsetHeight = modalContent.offsetHeight;
     const scrollHeight = modalContent.scrollHeight;
     const scrollTop = modalContent.scrollTop;
-    const scrollPosition = height + scrollTop;
+    const scrollPosition = offsetHeight + scrollTop;
     const proximity = 0;
 
     if ((scrollHeight - scrollPosition) / scrollHeight <= proximity) {
