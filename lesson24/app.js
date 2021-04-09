@@ -14,14 +14,10 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-modalButton.addEventListener('click', () => {
-    openModal();
-});
 
-closeButton.addEventListener('click', () => {
-    closeModal();
-});
+modalButton.addEventListener('click', openModal);
 
+closeButton.addEventListener('click', closeModal);
 
 
 modalContent.onscroll = function () {
