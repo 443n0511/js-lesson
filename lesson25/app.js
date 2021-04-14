@@ -77,34 +77,32 @@ function handleNameChanges() {
 
 function handleEMailChanges() {
     const emailValidation = /.+@.+\..+/;
+    console.log(emailValidation.test(this.value))
     if (emailValidation.test(this.value)) {
+        clearErrorMessage();
+        flugs.email = true;
+    } else {
         errorMsg = "メールアドレスの形式が異なっています。";
         createErrorMessage();
         this.after(p);
         flugs.email = false;
-    } else {
-        clearErrorMessage();
-        flugs.email = true;
     }
     checkFlags();
 }
-
-
 
 function handlePasswordChanges() {
     const passwordValidation = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,}$/;
     if (passwordValidation.test(this.value)) {
+        clearErrorMessage();
+        flugs.password = true;
+    } else {
         errorMsg = "8文字以上の大小の英数字を交ぜたものにしてください。";
         createErrorMessage();
         this.after(p);
         flugs.password = false;
-    } else {
-        clearErrorMessage();
-        flugs.password = true;
     }
     checkFlags();
 }
-
 
 function checkFlags() {
     const result = Object.values(flugs).every(value => value);

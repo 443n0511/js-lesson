@@ -103,37 +103,37 @@ Modal
 Form
 =============================================== */
 
-.registration-form_title{
+.form_title{
   font-size: 1.5em;
 }
-.registration-form_container{
+.form_container{
   margin: 3em auto;
   padding: 2em;
   width: 50%;
   min-width: 500px;
   background-color: #dee2e6;
 }
-.registration-form_container form{
+.form_container form{
   margin: 2em auto; 
   font-size: .875em;
 }
-.registration-form_container li{
+.form_container li{
   margin: 1em 0;
 }
-.registration-form_container label{
+.form_container label{
   display: inline-block;
   width: 35%;
   font-size: 1.2em;
 
 }
-.registration-form_container input[type="email"],
-.registration-form_container input[type="text"],
-.registration-form_container input[type="password"]{
+.form_container input[type="email"],
+.form_container input[type="text"],
+.form_container input[type="password"]{
   width: 55%;
   font-size: 1.2em;
 }
 
-.registration-form_text{
+.form_text{
 display: inline-block;
 margin: 0 auto;
 font-size: 1.2em;

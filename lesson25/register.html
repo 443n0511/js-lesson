@@ -11,9 +11,9 @@
 </head>
 
 <body>
-  <section class="registration-form_container">
+  <section class="form_container">
     <h1 class="registration-form_title">会員登録</h1>
-    <form action="register-done.html" onSubmit = "return validation()" novalidate>
+    <form action="register-done.html" name="register" onSubmit = "return validation()" novalidate>
       <ul>
         <li>
           <label for="yourName">※ユーザー名</label>
@@ -29,7 +29,7 @@
         </li>
         <li>
           <input id="js-check" type="checkbox" name="check" disabled>
-          <p class = "registration-form_text"><a href="#" id="js-modalButton">利用規約</a>を読み同意しました</p>
+          <p class = "form_text"><a href="#" id="js-modalButton">利用規約</a>を読み同意しました</p>
         </li>
       </ul>
       <button id="js-submitButton" class="submit-button">送信</button>
