@@ -76,7 +76,8 @@ function handleNameChanges() {
 }
 
 function handleEMailChanges() {
-    if (!this.value.match(/.+@.+\..+/)) {
+    const emailValidation = /.+@.+\..+/;
+    if (emailValidation.test(this.value)) {
         errorMsg = "メールアドレスの形式が異なっています。";
         createErrorMessage();
         this.after(p);
@@ -91,7 +92,8 @@ function handleEMailChanges() {
 
 
 function handlePasswordChanges() {
-    if (!this.value.match(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,}$/)) {
+    const passwordValidation = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,}$/;
+    if (passwordValidation.test(this.value)) {
         errorMsg = "8文字以上の大小の英数字を交ぜたものにしてください。";
         createErrorMessage();
         this.after(p);
