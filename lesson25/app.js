@@ -62,8 +62,8 @@ function clearErrorMessage() {
 
 
 function handleNameChanges() {
-    const maxCharacters = 16;
-    if (this.value.length >= maxCharacters) {
+    const maxCharacters = 15;
+    if (this.value.length > maxCharacters) {
         errorMsg = "※ユーザー名は15文字以下にしてください。";
         createErrorMessage();
         this.after(p);
