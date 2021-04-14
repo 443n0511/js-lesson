@@ -133,12 +133,31 @@ Form
   font-size: 1.2em;
 }
 
-.registration-form_container p{
+.registration-form_text{
 display: inline-block;
 margin: 0 auto;
 font-size: 1.2em;
 }
-
+.error-message{
+  display: block;
+  margin-left: 36%;
+  color: red;
+}
+.submit-button{
+  display: block;
+  width: 100px;
+  padding: .5em;
+  background: #2cb696;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  outline: none;
+  color: #fff;
+}
+.submit-button:disabled{
+  background: #eee;
+  color: #999;
+}
 
 /* ===============================================
 Tabs
