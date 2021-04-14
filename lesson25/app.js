@@ -67,6 +67,7 @@ function handleNameChanges() {
         errorMsg = "※ユーザー名は15文字以下にしてください。";
         createErrorMessage();
         this.after(p);
+        flugs.name = false;
     } else {
         clearErrorMessage();
         flugs.name = true;
@@ -79,6 +80,7 @@ function handleEMailChanges() {
         errorMsg = "メールアドレスの形式が異なっています。";
         createErrorMessage();
         this.after(p);
+        flugs.email = false;
     } else {
         clearErrorMessage();
         flugs.email = true;
@@ -93,6 +95,7 @@ function handlePasswordChanges() {
         errorMsg = "8文字以上の大小の英数字を交ぜたものにしてください。";
         createErrorMessage();
         this.after(p);
+        flugs.password = false;
     } else {
         clearErrorMessage();
         flugs.password = true;
@@ -105,6 +108,8 @@ function checkFlags() {
     const result = Object.values(flugs).every(value => value);
     if (result) {
         submitButton.disabled = false;
+    }else{
+        submitButton.disabled = true;
     }
 }
 
