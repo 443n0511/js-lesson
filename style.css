@@ -157,6 +157,7 @@ font-size: 1.2em;
 .submit-button:disabled{
   background: #eee;
   color: #999;
+  cursor: not-allowed;
 }
 
 /* ===============================================
