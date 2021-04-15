@@ -26,7 +26,6 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-
 modalButton.addEventListener('click', openModal);
 closeButton.addEventListener('click', closeModal);
 
@@ -77,7 +76,6 @@ function handleNameChanges() {
 
 function handleEMailChanges() {
     const emailValidation = /.+@.+\..+/;
-    console.log(emailValidation.test(this.value))
     if (emailValidation.test(this.value)) {
         clearErrorMessage();
         flugs.email = true;
