@@ -2,59 +2,89 @@ const submitButton = document.getElementById('js-submitButton');
 submitButton.disabled = true;
 
 const p = document.createElement("p");
-let errorMsg = "";
 
-const flugs = {
-    name: false,
-    password: false
-};
 
-function createErrorMessage() {
-    p.textContent = errorMsg;
-    p.classList.add("error-message");
+class passwordValidation {
+    errorMessage = null
+
+    static validationExgr = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,}$/
+    static validationMessage = "8文字以上の大小の英数字を交ぜたものにしてください。"
+
+    clearErrorMessage() {
+        this.errorMessage = `password:""`;
+        p.textContent = "";
+    }
+    createErrorMessage() {
+        this.errorMessage = `password:${passwordValidation.validationMessage}`;
+        p.textContent = passwordValidation.validationMessage;
+        p.classList.add("error-message");
+    }
+
+    isValid(value){
+        return passwordValidation.validationExgr.test(value)
+    }
+    allValid(){
+        if(this.errorMessage === `password:""`){
+        return true
+    }
+}
+}
+class nameValidation {
+    errorMessage = null
+    static maxCharacters = 15
+    static validationMessage = "※ユーザー名は15文字以下にしてください。"
+
+    clearErrorMessage() {
+        this.errorMessage = `name:""`;
+        p.textContent = "";
+    }
+    createErrorMessage() {
+        this.errorMessage = `name:${nameValidation.validationMessage}`;
+        p.textContent = nameValidation.validationMessage;
+        p.classList.add("error-message");
+    }
+
+    isValid(value){
+        return value > nameValidation.maxCharacters
+    }
+    allValid(){
+        if(this.errorMessage === `name:""`){
+        return true
+    }
+}
 }
 
-function clearErrorMessage() {
-    errorMsg = "";
-    p.textContent = errorMsg;
-}
-
+const nameValidationIns = new nameValidation();
+const passwordValidationIns = new passwordValidation();
 
 yourName.addEventListener('input', handleNameChanges);
 yourPassword.addEventListener('input', handlePasswordChanges);
 
 
-function handleNameChanges() {
-    const maxCharacters = 15;
-    if (this.value.length > maxCharacters) {
-        errorMsg = "※ユーザー名は15文字以下にしてください。";
-        createErrorMessage();
+function handleNameChanges(e) {
+    if (nameValidationIns.isValid(e.target.value.length)) {
+        nameValidationIns.createErrorMessage();
         this.after(p);
-        flugs.name = false;
     } else {
-        clearErrorMessage();
-        flugs.name = true;
+        nameValidationIns.clearErrorMessage();
     }
+    console.log(nameValidationIns.errorMessage)
     checkFlags();
 }
 
-function handlePasswordChanges() {
-    const passwordValidation = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,}$/;
-    if (passwordValidation.test(this.value)) {
-        clearErrorMessage();
-        flugs.password = true;
+function handlePasswordChanges(e) {
+    if (passwordValidationIns.isValid(e.target.value)) {
+        passwordValidationIns.clearErrorMessage()
     } else {
-        errorMsg = "8文字以上の大小の英数字を交ぜたものにしてください。";
-        createErrorMessage();
+        passwordValidationIns.createErrorMessage();
         this.after(p);
-        flugs.password = false;
     }
+    console.log(passwordValidationIns.errorMessage)
     checkFlags();
 }
 
 function checkFlags() {
-    const result = Object.values(flugs).every(value => value);
-    if (result) {
+    if (nameValidationIns.allValid() && passwordValidationIns.allValid()) {
         submitButton.disabled = false;
     }else{
         submitButton.disabled = true;
@@ -76,6 +106,7 @@ function getFormData(e){
     toLogin(values)
 };
 submitButton.addEventListener('click', getFormData);
+
 
 async function toLogin(formData) {
     let result;
