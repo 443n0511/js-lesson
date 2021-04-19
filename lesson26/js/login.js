@@ -93,9 +93,9 @@ async function toLogin(formData) {
     }
 };
 
-async function registeredCheck(values) {
+async function registeredCheck(user) {
     return new Promise((resolve) => {
-        const registeredUserData = [
+        const users = [
             {
                 name: "test1",
                 password: "N302aoe3"
@@ -109,7 +109,7 @@ async function registeredCheck(values) {
                 password: "N302aoe5"
             },
         ];
-        const checked = registeredUserData.some(value => value.name === values.name && value.password === values.password);
+        const checked = users.some(value => user.name === value.name && user.password === value.password);
         return resolve(checked);
     });
 };
