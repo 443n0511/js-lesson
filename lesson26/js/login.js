@@ -1,27 +1,35 @@
 const submitButton = document.getElementById('js-submitButton');
 submitButton.disabled = true;
 
-const p = document.createElement("p");
+const elementForName = document.getElementById("js-nameErrorMessage");
+const elementForPassword = document.getElementById("js-passwordErrorMessage");
 
+class Validation {
+    errorMessage
+}
 
-class passwordValidation {
+class PasswordValidation extends Validation {
     errorMessage = null
-
+    messageViewElement = null
     static validationExgr = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,}$/
     static validationMessage = "8文字以上の大小の英数字を交ぜたものにしてください。"
 
+    constructor(element){
+        super();
+        this.messageViewElement = element
+    }
     clearErrorMessage() {
         this.errorMessage = `password:""`;
-        p.textContent = "";
+        this.messageViewElement.textContent = "";
     }
     createErrorMessage() {
-        this.errorMessage = `password:${passwordValidation.validationMessage}`;
-        p.textContent = passwordValidation.validationMessage;
-        p.classList.add("error-message");
+        this.errorMessage = `password:${PasswordValidation.validationMessage}`;
+        this.messageViewElement.textContent = PasswordValidation.validationMessage;
+        this.messageViewElement.classList.add("error-message");
     }
 
     isValid(value){
-        return passwordValidation.validationExgr.test(value)
+        return PasswordValidation.validationExgr.test(value)
     }
     allValid(){
         if(this.errorMessage === `password:""`){
@@ -29,23 +37,27 @@ class passwordValidation {
     }
 }
 }
-class nameValidation {
+class NameValidation extends Validation {
     errorMessage = null
+    messageViewElement = null
     static maxCharacters = 15
     static validationMessage = "※ユーザー名は15文字以下にしてください。"
-
+    constructor(element){
+        super();
+        this.messageViewElement = element
+    }
     clearErrorMessage() {
         this.errorMessage = `name:""`;
-        p.textContent = "";
+        this.messageViewElement.textContent = "";
     }
     createErrorMessage() {
-        this.errorMessage = `name:${nameValidation.validationMessage}`;
-        p.textContent = nameValidation.validationMessage;
-        p.classList.add("error-message");
+        this.errorMessage = `name:${NameValidation.validationMessage}`;
+        this.messageViewElement.textContent = NameValidation.validationMessage;
+        this.messageViewElement.classList.add("error-message");
     }
 
     isValid(value){
-        return value > nameValidation.maxCharacters
+        return value > NameValidation.maxCharacters
     }
     allValid(){
         if(this.errorMessage === `name:""`){
@@ -54,8 +66,8 @@ class nameValidation {
 }
 }
 
-const nameValidationIns = new nameValidation();
-const passwordValidationIns = new passwordValidation();
+const nameValidationIns = new NameValidation(elementForName);
+const passwordValidationIns = new PasswordValidation(elementForPassword);
 
 yourName.addEventListener('input', handleNameChanges);
 yourPassword.addEventListener('input', handlePasswordChanges);
@@ -64,7 +76,7 @@ yourPassword.addEventListener('input', handlePasswordChanges);
 function handleNameChanges(e) {
     if (nameValidationIns.isValid(e.target.value.length)) {
         nameValidationIns.createErrorMessage();
-        this.after(p);
+        this.after(passwordValidationIns.messageViewElement);
     } else {
         nameValidationIns.clearErrorMessage();
     }
@@ -77,7 +89,7 @@ function handlePasswordChanges(e) {
         passwordValidationIns.clearErrorMessage()
     } else {
         passwordValidationIns.createErrorMessage();
-        this.after(p);
+        this.after(passwordValidationIns.messageViewElement);
     }
     console.log(passwordValidationIns.errorMessage)
     checkFlags();
@@ -144,5 +156,3 @@ async function registeredCheck(user) {
         return resolve(checked);
     });
 };
-
-
