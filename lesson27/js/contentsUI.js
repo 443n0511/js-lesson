@@ -64,8 +64,8 @@ function createOfTab(tabs) {
 }
 
 function createOfTabContents(contents) {
-    const tabContentsUl = document.createElement("ul");
-    tabContentsUl.classList.add("tab_contents");
+    const tabContentInUl = document.createElement("ul");
+    tabContentInUl.classList.add("tab_contents");
     const tabContentsContainerLi = document.createElement("li");
     tabContentsContainerLi.classList.add("tab_contents_container");
     const contentsFragment = document.createDocumentFragment();
@@ -74,29 +74,29 @@ function createOfTabContents(contents) {
         const tabContentLi = document.createElement("li");
         tabContentLi.classList.add("tab_content");
         tabContentLi.id = contents[index].id;
-        const tabContentDescriptionUl = document.createElement("ul");
+        const tabContentInUl = document.createElement("ul");
         for (let i = 0; i < contents[index].articles.length; i++) {
-            const tabContentDescriptionLi = document.createElement("li");
-            tabContentDescriptionLi.classList.add("tab_content-description_li");
-            const tabContentDescriptionArticle = document.createElement("article");
-            tabContentDescriptionArticle.classList.add("tab_content-description_Article");
-            const tabContentDescriptionP = document.createElement("p");
-            tabContentDescriptionP.id = `${contents[index].id}-title_no${i}`;
-            tabContentDescriptionUl
-                .appendChild(tabContentDescriptionLi)
-                .appendChild(tabContentDescriptionArticle)
-                .appendChild(tabContentDescriptionP)
+            const inLi = document.createElement("li");
+            inLi.classList.add("tab_content-in_li");
+            const inArticle = document.createElement("article");
+            inArticle.classList.add("tab_content-in_Article");
+            const inP = document.createElement("p");
+            inP.id = `${contents[index].id}-title_no${i}`;
+            tabContentInUl
+                .appendChild(inLi)
+                .appendChild(inArticle)
+                .appendChild(inP)
                 .textContent = contents[index].articles[i].title;
         }
         contentsFragment
             .appendChild(tabContentLi)
-            .appendChild(tabContentDescriptionUl);
+            .appendChild(tabContentInUl);
         return prev;
     }, []);
 
     tabsParent
         .appendChild(tabContentsContainerLi)
-        .appendChild(tabContentsUl)
+        .appendChild(tabContentInUl)
         .appendChild(contentsFragment);
 }
 

@@ -215,7 +215,7 @@ Tabs
     background-color:#fff;
   }
 
-  .tab_content-description_li{
+  .tab_content-in_li{
       padding: .5em 0;
       list-style-type: disc;
       display: block;
@@ -246,7 +246,7 @@ color: #fff;
 }
 
 
-.tab_content-description_Article{
+.tab_content-in_Article{
     display: flex;
 }
 
