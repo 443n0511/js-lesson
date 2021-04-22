@@ -1,28 +1,9 @@
 /*
 tabs
 */
-
 const tabsUrl = "https://jsondata.okiba.me/v1/json/vcHUg210221022056";
 const tabsParent = document.getElementById("js-tabs-parent");
 
-//カテゴリタブ
-const tabsUl = document.createElement("ul");
-tabsUl.classList.add("tabs");
-const tabsContainerLi = document.createElement("li");
-tabsContainerLi.classList.add("tabs_container");
-const tabsFragment = document.createDocumentFragment();
-
-//カテゴリ記事
-const tabContentsUl = document.createElement("ul");
-tabContentsUl.classList.add("tab_contents");
-const tabContentsContainerLi = document.createElement("li");
-tabContentsContainerLi.classList.add("tab_contents_container");
-const contentsFragment = document.createDocumentFragment();
-
-//カテゴリタブ・記事をDOMへ
-tabsParent.prepend(tabsContainerLi);
-tabsParent.appendChild(tabContentsContainerLi).appendChild(tabContentsUl);
-tabsContainerLi.appendChild(tabsUl);
 
 async function getTabsJsonData() {
     try {
@@ -62,6 +43,12 @@ function createTabsElements({ data }) {
 }
 
 function createOfTab(tabs) {
+    const tabsUl = document.createElement("ul");
+    tabsUl.classList.add("tabs");
+    const tabsContainerLi = document.createElement("li");
+    tabsContainerLi.classList.add("tabs_container");
+    const tabsFragment = document.createDocumentFragment();
+
     tabs.reduce((prev, current, index) => {
         const tabItemLi = document.createElement("li");
         tabItemLi.classList.add("tab_item");
@@ -70,10 +57,19 @@ function createOfTab(tabs) {
         tabsFragment.appendChild(tabItemLi);
         return prev;
     }, []);
-    tabsUl.appendChild(tabsFragment);
+    tabsParent.prepend(tabsContainerLi);
+    tabsContainerLi
+        .appendChild(tabsUl)
+        .appendChild(tabsFragment);
 }
 
 function createOfTabContents(contents) {
+    const tabContentsUl = document.createElement("ul");
+    tabContentsUl.classList.add("tab_contents");
+    const tabContentsContainerLi = document.createElement("li");
+    tabContentsContainerLi.classList.add("tab_contents_container");
+    const contentsFragment = document.createDocumentFragment();
+
     contents.reduce((prev, current, index) => {
         const tabContentLi = document.createElement("li");
         tabContentLi.classList.add("tab_content");
@@ -83,23 +79,23 @@ function createOfTabContents(contents) {
             const tabContentDescriptionLi = document.createElement("li");
             tabContentDescriptionLi.classList.add("tab_content-description_li");
             const tabContentDescriptionArticle = document.createElement("article");
-            tabContentDescriptionArticle.classList.add(
-                "tab_content-description_Article"
-            );
+            tabContentDescriptionArticle.classList.add("tab_content-description_Article");
             const tabContentDescriptionP = document.createElement("p");
             tabContentDescriptionP.id = `${contents[index].id}-title_no${i}`;
             tabContentDescriptionUl
                 .appendChild(tabContentDescriptionLi)
                 .appendChild(tabContentDescriptionArticle)
-                .appendChild(tabContentDescriptionP).textContent =
-                contents[index].articles[i].title;
+                .appendChild(tabContentDescriptionP)
+                .textContent = contents[index].articles[i].title;
         }
         contentsFragment
             .appendChild(tabContentLi)
             .appendChild(tabContentDescriptionUl);
         return prev;
     }, []);
-    tabContentsContainerLi
+
+    tabsParent
+        .appendChild(tabContentsContainerLi)
         .appendChild(tabContentsUl)
         .appendChild(contentsFragment);
 }
@@ -111,7 +107,7 @@ function displayOfCategoryImage(categoryImages) {
         tabContentImgP.classList.add("tab_content_img");
         const img = document.createElement("img");
         tabContentList.appendChild(tabContentImgP).appendChild(img).src =
-        categoryImages[index].img;
+            categoryImages[index].img;
         return prev;
     }, []);
 }
