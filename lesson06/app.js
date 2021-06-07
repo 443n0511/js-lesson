@@ -1,7 +1,7 @@
 // 問題６
 const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
-const listContents = [{ to: "bookmark.html", img: "../img/1.png", alt: "画像1", text: "ブックマーク" }, { to: "message.html", img: "../img/2.png", alt: "画像2", text: "メッセージ" }];
+const listContents = [{ to: "bookmark.html", img: "./img/1.png", alt: "画像1", text: "ブックマーク" }, { to: "message.html", img: "./img/2.png", alt: "画像2", text: "メッセージ" }];
 const getArray = new Promise((resolve) => {
     resolve(listContents);
 });
@@ -11,11 +11,11 @@ const createTmplate = (value) =>
 
 getArray.then((value) => {
     setTimeout(() => {
-    const result = value.reduce((prev, current) => {
-        return `${prev}${createTmplate(current)}`;
-    }, "");
-    div.appendChild(ul).innerHTML = result;
-},3000);
+        const result = value.reduce((prev, current) => {
+            return `${prev}${createTmplate(current)}`;
+        }, "");
+        div.appendChild(ul).innerHTML = result;
+    }, 3000);
 });
 
 

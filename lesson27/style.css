@@ -1,0 +1,350 @@
+@charset "UTF-8";
+
+/* ===============================================
+Base
+=============================================== */
+
+
+/*
+Reset
+----------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, main, menu, nav, output, ruby, section, summary, time, mark, audio, video{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section{
+	display:block;
+}
+body{
+	line-height:1.6;
+}
+ol, ul{
+	list-style:none;
+}
+blockquote, q{
+	quotes:none;
+}
+blockquote:before, blockquote:after, q:before, q:after{
+	content:"";
+	content:none;
+}
+table{
+	border-collapse:collapse;
+	border-spacing:0;
+}
+img{
+    vertical-align : bottom;
+}
+
+.remove-button{
+    display:none;
+}
+
+/* ===============================================
+Modal
+=============================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    transition: .5s;
+    }
+    
+    .modal-content{
+      margin: 60px auto;
+    background-color: white;
+    padding:32px;
+    width: 60%;
+    max-width: 1000px;
+    height: 50%;
+    overflow-y: scroll;
+    }
+
+    .modal-content ul{
+      list-style-type: disc;
+      padding-left: 30px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px
+    }
+
+    .modal-content h1, .modal-content h2 {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding:.75em 0;
+    }
+    .modal-buttons{
+      margin: .5em auto;
+      width: 200px;
+    }
+
+    .modal-body{
+        padding: 1em;
+    }
+
+    .modal-title{
+        font-size: 1em;
+        font-weight: 500;
+        margin: 1em auto;
+    }
+
+/* ===============================================
+Form
+=============================================== */
+
+.form_title{
+  font-size: 1.5em;
+}
+.form_container{
+  margin: 3em auto;
+  padding: 2em;
+  width: 50%;
+  min-width: 500px;
+  background-color: #dee2e6;
+}
+.form_container form{
+  margin: 2em auto; 
+  font-size: .875em;
+}
+.form_container li{
+  margin: 1em 0;
+}
+.form_container label{
+  display: inline-block;
+  width: 35%;
+  font-size: 1.2em;
+
+}
+.form_container input[type="email"],
+.form_container input[type="text"],
+.form_container input[type="password"]{
+  width: 55%;
+  font-size: 1.2em;
+}
+
+.form_text{
+display: inline-block;
+margin: 0 auto;
+font-size: 1.2em;
+}
+.error-message{
+  display: block;
+  margin-left: 36%;
+  color: red;
+}
+.submit-button{
+  display: block;
+  width: 100px;
+  padding: .5em;
+  background: #2cb696;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  outline: none;
+  color: #fff;
+}
+.submit-button:disabled{
+  background: #eee;
+  color: #999;
+  cursor: not-allowed;
+}
+/* ===============================================
+Tabs
+=============================================== */
+.tabs {
+    background-color: #fff;
+    width:100%;
+    max-width: 600px;
+    margin: 50px auto 0;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);  
+
+    
+}
+
+  .tab_item {
+    width: calc(100%/5);
+    height: 50px;
+    background-color:  #87CEFA;
+    line-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #191970;
+    display: block;
+    list-style-type:none;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    cursor:pointer;
+
+  }
+  .tab_item:hover {
+    opacity: 0.75;
+  }
+
+  .tab_content {
+    display: none; 
+    width: 100%;
+    padding: 40px;
+    width:100%;
+    max-width: 600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);   
+  }
+
+  .tab_content.is-show{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .tab_item.is-active{
+    background-color:#fff;
+  }
+
+  .tab_content-in_li{
+      padding: .5em 0;
+      list-style-type: disc;
+      display: block;
+  }
+
+  .tab_content_img img{
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+
+  }
+
+.new{
+background-color: orange;
+padding:2px 5px;
+border-radius: 10px;
+font-size: .5em;
+color: #fff;
+}
+.comment{
+    font-size: 3px;
+    padding-left: 1em;
+    display: inline-block;
+    line-height: 2;
+}
+.comment img{
+    width: 10px;
+}
+
+
+.tab_content-in_Article{
+    display: flex;
+}
+
+
+
+/* ===============================================
+Slide-show
+=============================================== */
+
+.slide-show {
+  position: relative;
+  width: 60%;
+  max-width: 350px;
+  margin: 20px auto;
+}
+
+.slide-show_container {
+  height:230px;
+}
+
+.slide-show_list{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  list-style-type: none;
+  z-index: 0;
+  display:none;
+}
+
+.slide-show_list.is-show {
+  display: block;
+}
+
+.button-pagination{
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  margin: 0 2px;
+  content: "";
+  background: #ffdf85;
+  border: none;
+  border-radius: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+}
+.button-pagination.is-active{
+  background: red;
+}
+
+
+.slide-show_list img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  
+}
+
+.button {
+  display: block;
+  position: absolute;
+  top:50%;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  padding: 4px 0 0 0;
+  background: #ffdf85;
+  border: none;
+  border-radius: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.5em;
+  outline: none;
+}
+
+.button.-prev {
+  left: -50px;
+}
+
+.button.-prev:hover {
+  transform: scale( 1.1 );
+}
+
+.button.-next {
+  right: -50px;
+}
+
+.button.-next:hover {
+  transform: scale( 1.1 );
+}
+
+.button.-prev:disabled,.button.-next:disabled{
+  background-color:  #eeeeee;
+  pointer-events: none;
+}
+.pagination{
+  text-align: center;
+  padding:20px;
+}
+

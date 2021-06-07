@@ -6,6 +6,6 @@ const img = document.createElement('img');
 
 a.textContent = "これです";
 a.href = "../lesson1/index.html";
-img.src = "../img/bookmark.png";
+img.src = "./img/bookmark.png";
 
 ul.appendChild(li).appendChild(a).appendChild(img);

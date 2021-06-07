@@ -55,23 +55,23 @@ function createElements(data) {
 
 
 function createOfListImageItem(data) {
-    data.forEach((value,index)=>{
-    const ListImageItemImg = document.createElement("img");
+    data.forEach((value, index) => {
+        const ListImageItemImg = document.createElement("img");
         const ListImageItem = document.createElement("li");
         ListImageItem.classList.add("slide-show_list");
         ListImageItemImg.src = value.src;
         imagesFragment.appendChild(ListImageItem)
             .appendChild(ListImageItemImg);
-            if (index === 0) {
-                ListImageItem.classList.add("is-show");
-            }
+        if (index === 0) {
+            ListImageItem.classList.add("is-show");
+        }
     })
     parent.appendChild(imagesFragment);
 }
 
-function imageListsChangeToArray(){
+function imageListsChangeToArray() {
     imageLists = document.querySelectorAll('.slide-show_list');
-    return imageLists = Array.from( imageLists );
+    return imageLists = Array.from(imageLists);
 }
 
 function createPagination() {
@@ -104,6 +104,7 @@ function createButton() {
 
     parent.after(nextButton);
     parent.after(prevButton);
+
 }
 
 
@@ -121,6 +122,7 @@ function buttonControl() {
     } else {
         nextButton.disabled = false;
     }
+    paginationUpdate();
 }
 
 function showNext() {

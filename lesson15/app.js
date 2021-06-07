@@ -2,7 +2,7 @@
 
 const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
-const getJsonUrl = "https://jsondata.okiba.me/v1/json/s7zm3210129115033";
+const getJsonUrl = "https://jsondata.okiba.me/v1/json/wPqbt210607103645";
 const button = document.getElementById("js-button");
 const modalButton = document.getElementById('js-modalButton');
 const closeButton = document.getElementById('js-closeButton');
@@ -37,7 +37,7 @@ async function init() {
     } catch (e) {
         console.error(err);
     }
-   
+
 }
 
 function displayLodingImage() {
@@ -52,25 +52,25 @@ function displayLodingImage() {
 }
 
 
-function toDomCreateErements({data}){
+function toDomCreateErements({ data }) {
     if (data) {
         const jsonData = data;
         const lodingImage = document.getElementById("lodingImage");
         lodingImage.remove();
-                const result= jsonData.reduce((prev, current) => {
-                    return `${prev}${createTmplate(current)}`;
-                }, "");
-                ul.innerHTML = result;
+        const result = jsonData.reduce((prev, current) => {
+            return `${prev}${createTmplate(current)}`;
+        }, "");
+        ul.innerHTML = result;
     }
 }
 
 
-modalButton.addEventListener('click', ()=> {
+modalButton.addEventListener('click', () => {
     modal.style.display = 'block';
 });
 
 
-closeButton.addEventListener('click',()=> {
+closeButton.addEventListener('click', () => {
     modal.style.display = 'none';
 });
 
@@ -79,10 +79,10 @@ getDataButton.addEventListener('click', (e) => {
     if (number.value == "") {
         alert('numberを入力してください。');
         return false;
-    } else if(yorName.value == ""){
+    } else if (yorName.value == "") {
         alert('nameを入力してください。');
         return false;
-    }else{
+    } else {
         const getNumber = new Promise((resolve) => {
             resolve(number.value);
         });

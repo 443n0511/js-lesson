@@ -1,4 +1,4 @@
-const getJsonUrl = "https://jsondata.okiba.me/v1/json/vcHUg210221022056";
+const getJsonUrl = "https://jsondata.okiba.me/v1/json/oxP76210607104654";
 const toDomUl = document.getElementById("js-parent");
 
 //カテゴリタブ
@@ -143,7 +143,7 @@ function numberOfDisplayComments(value) {
             if (setCommentCount > 0) {
                 comment.textContent = setCommentCount;
                 tabContentDescriptionP.appendChild(commentImg).src =
-                    "../img/comment.png";
+                    "./img/comment.png";
                 tabContentDescriptionP.appendChild(comment);
             }
         }

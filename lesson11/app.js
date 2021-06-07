@@ -2,7 +2,7 @@
 
 const div = document.getElementById("js-parent");
 const ul = document.createElement("ul");
-const getJsonUrl = "https://jsondata.okiba.me/v1/json/s7zm3210129115033";
+const getJsonUrl = "https://jsondata.okiba.me/v1/json/wPqbt210607103645";
 const createTmplate = (value) =>
     `<li><a href="${value.to}"><img src="${value.img}" alt="${value.alt}">${value.text}</a></li>`;
 
@@ -25,19 +25,19 @@ async function init() {
 }
 
 
-function toDomCreateErements({data}){
+function toDomCreateErements({ data }) {
     if (data) {
         const jsonData = data;
-                const lodingImage = document.getElementById("lodingImage");
-                lodingImage.remove();
-                const result= jsonData.reduce((prev, current) => {
-                    return `${prev}${createTmplate(current)}`;
-                }, "");
-                ul.innerHTML = result;
+        const lodingImage = document.getElementById("lodingImage");
+        lodingImage.remove();
+        const result = jsonData.reduce((prev, current) => {
+            return `${prev}${createTmplate(current)}`;
+        }, "");
+        ul.innerHTML = result;
     }
 }
 
-function displayLodingImage(){
+function displayLodingImage() {
     const image = document.createElement("img");
     image.id = "lodingImage";
     image.src = "../img/loading-circle.gif";

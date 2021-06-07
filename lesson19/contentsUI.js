@@ -2,7 +2,7 @@
 tabs
 */
 
-const tabsUrl = "https://jsondata.okiba.me/v1/json/vcHUg210221022056";
+const tabsUrl = "https://jsondata.okiba.me/v1/json/oxP76210607104654";
 const tabsParent = document.getElementById("js-tabs-parent");
 
 //カテゴリタブ
@@ -111,7 +111,7 @@ function displayOfCategoryImage(categoryImages) {
         tabContentImgP.classList.add("tab_content_img");
         const img = document.createElement("img");
         tabContentList.appendChild(tabContentImgP).appendChild(img).src =
-        categoryImages[index].img;
+            categoryImages[index].img;
         return prev;
     }, []);
 }
@@ -147,7 +147,7 @@ function numberOfDisplayComments(comments) {
             if (setCommentCount > 0) {
                 comment.textContent = setCommentCount;
                 tabContentDescriptionP.appendChild(commentImg).src =
-                    "../img/comment.png";
+                    "./img/comment.png";
                 tabContentDescriptionP.appendChild(comment);
             }
         }
